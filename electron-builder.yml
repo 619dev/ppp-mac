@@ -1,0 +1,61 @@
+appId: com.paperphone.plus.desktop
+productName: PaperPhone Plus
+directories:
+  buildResources: build
+  output: release/${version}
+
+files:
+  - dist-electron/**/*
+  - dist/**/*
+
+# Disable auto-update publish (no update server configured)
+publish: null
+
+# macOS
+mac:
+  category: public.app-category.social-networking
+  icon: build/icon.icns
+  target:
+    - target: dmg
+      arch:
+        - universal
+    - target: zip
+      arch:
+        - universal
+  darkModeSupport: true
+  hardenedRuntime: true
+
+dmg:
+  artifactName: ${productName}-${version}-macOS.${ext}
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+
+# Windows
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: ${productName}-${version}-Windows-Setup.${ext}
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: PaperPhone Plus
+
+# Linux (bonus)
+linux:
+  icon: build/icons
+  target:
+    - AppImage
+    - deb
+  category: Network
+  artifactName: ${productName}-${version}-Linux.${ext}

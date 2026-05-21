@@ -1,0 +1,343 @@
+<div align="center">
+  <img src="public/icons/icon-512.png" width="128" height="128" alt="PaperPhone Plus" style="border-radius: 24px;" />
+  <h1>PaperPhone Plus Desktop</h1>
+  <p><strong>端对端加密即时通讯桌面客户端</strong></p>
+  <p><strong>End-to-End Encrypted Messaging Desktop Client</strong></p>
+
+  <p>
+    <img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue?style=flat-square" alt="Platform" />
+    <img src="https://img.shields.io/badge/Electron-42-47848F?style=flat-square&logo=electron" alt="Electron" />
+    <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
+    <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite" alt="Vite" />
+    <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License" />
+  </p>
+</div>
+
+---
+
+[中文](#中文) | [English](#english)
+
+---
+
+# 中文
+
+## 📖 简介
+
+PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 的桌面客户端版本，基于 Electron 构建。它将原项目的 React 前端封装为原生桌面应用，提供完整的即时通讯功能，并内置网络代理支持。
+
+## ✨ 功能特性
+
+### 💬 即时通讯
+- 私聊 & 群聊，支持文字、图片、视频、文件、语音消息
+- 一对一视频/语音通话 & 群组通话
+- 朋友圈（Moments）动态发布与浏览
+- 联系人管理、扫码添加好友
+
+### 🔐 端对端加密
+- **E2EE（端对端加密）**：所有消息在发送前加密，服务器无法读取
+- **前向保密（Forward Secrecy）**：基于 Double Ratchet 算法，每条消息使用不同密钥
+- **抗量子加密**：集成 CRYSTALS-Kyber 后量子密钥封装，抵御量子计算攻击
+- **加密库**：libsodium (X25519, XSalsa20-Poly1305, Ed25519)
+
+### 🌐 网络代理
+- 支持 **SOCKS5**、**HTTP**、**HTTPS** 代理协议
+- 系统级透明代理 — 所有 HTTP 和 WebSocket 流量自动走代理
+- 多代理配置管理，一键切换
+- 代理延迟测试
+- 配置持久化，重启自动恢复
+
+### 🖥️ 桌面特性
+- macOS + Windows + Linux 跨平台支持
+- macOS Universal Binary（同时支持 Intel 和 Apple Silicon）
+- 桌面自适应布局（最小 375×600，默认 1024×768）
+- 窗口位置 & 大小记忆
+- 外部链接自动在系统浏览器中打开
+- 暗色模式支持
+
+## 📦 安装
+
+### 从 Release 下载
+
+前往 [Releases](../../releases) 页面下载对应平台的安装包：
+
+| 平台 | 文件 | 说明 |
+|------|------|------|
+| macOS | `PaperPhone Plus-x.x.x-macOS.dmg` | DMG 安装镜像（Universal） |
+| macOS | `PaperPhone Plus-x.x.x-universal-mac.zip` | ZIP 压缩包 |
+| Windows | `PaperPhone Plus-x.x.x-Windows-Setup.exe` | NSIS 安装程序 |
+| Linux | `PaperPhone Plus-x.x.x-Linux.AppImage` | AppImage 便携包 |
+
+### 从源码构建
+
+#### 环境要求
+
+- Node.js >= 18
+- npm >= 9
+
+#### 步骤
+
+```bash
+# 克隆仓库
+git clone https://github.com/619dev/Paperphone-plus.git
+cd Paperphone-plus
+
+# 安装依赖
+npm install
+
+# 开发模式（Vite 热重载 + Electron）
+npm run dev:electron
+
+# 构建生产版本
+npm run build
+
+# 打包 macOS
+npm run build:mac
+
+# 打包 Windows
+npm run build:win
+
+# 打包 Linux
+npm run build:linux
+
+# 打包所有平台
+npm run build:all
+```
+
+## 🔧 代理配置
+
+1. 打开应用，进入登录页面
+2. 点击代理设置图标
+3. 添加代理节点（支持 SOCKS5 / HTTP / HTTPS）
+4. 填写主机、端口、用户名（可选）、密码（可选）
+5. 激活代理并测试连接
+
+代理通过 Electron 的 `session.setProxy()` API 实现，对所有网络请求（包括 WebSocket）透明生效。
+
+## 🏗️ 技术架构
+
+```
+┌─────────────────────────────────────────┐
+│            Electron Main Process         │
+│  ┌─────────┐  ┌──────────┐  ┌────────┐ │
+│  │  Proxy  │  │  Window  │  │  IPC   │ │
+│  │ Manager │  │ Manager  │  │Handler │ │
+│  └─────────┘  └──────────┘  └────────┘ │
+│       ↕ session.setProxy()    ↕ IPC     │
+├─────────────────────────────────────────┤
+│          Preload (contextBridge)         │
+├─────────────────────────────────────────┤
+│          Renderer (React 19 + Vite)      │
+│  ┌──────┐ ┌───────┐ ┌──────┐ ┌──────┐ │
+│  │Login │ │ Chats │ │Calls │ │Moments│ │
+│  └──────┘ └───────┘ └──────┘ └──────┘ │
+│  ┌─────────────────────────────────┐   │
+│  │  Crypto (libsodium + Kyber)     │   │
+│  │  Double Ratchet + E2EE          │   │
+│  └─────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+```
+
+### 技术栈
+
+| 层级 | 技术 |
+|------|------|
+| 桌面框架 | Electron 42 |
+| 前端框架 | React 19 + TypeScript 5.7 |
+| 构建工具 | Vite 6 |
+| 状态管理 | Zustand 5 |
+| 路由 | React Router 7 |
+| 加密 | libsodium-wrappers-sumo + crystals-kyber-js |
+| 打包 | electron-builder |
+| 持久化 | electron-store |
+
+## 📁 项目结构
+
+```
+├── electron/
+│   ├── main.ts          # 主进程：窗口、代理、IPC
+│   └── preload.ts       # 预加载：安全 API 桥接
+├── src/
+│   ├── api/             # HTTP、WebSocket、代理桥接
+│   ├── components/      # UI 组件
+│   ├── contexts/        # React Context（通话等）
+│   ├── crypto/          # E2EE 加密模块
+│   ├── hooks/           # 自定义 Hooks
+│   ├── i18n/            # 国际化
+│   ├── pages/           # 页面组件
+│   ├── store/           # Zustand 状态管理
+│   ├── utils/           # 工具函数
+│   ├── electron.d.ts    # Electron API 类型声明
+│   └── main.tsx         # React 入口
+├── build/               # 应用图标资源
+├── electron-builder.yml # 打包配置
+├── tsconfig.electron.json # Electron TypeScript 配置
+├── vite.config.ts       # Vite 构建配置
+└── package.json         # 项目配置
+```
+
+## 📄 许可证
+
+本项目基于 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 开发。
+
+---
+
+# English
+
+## 📖 Introduction
+
+PaperPhone Plus Desktop is the desktop client of [Paperphone-plus](https://github.com/619dev/Paperphone-plus), built with Electron. It wraps the original React frontend into a native desktop application with full instant messaging capabilities and built-in network proxy support.
+
+## ✨ Features
+
+### 💬 Instant Messaging
+- Private & group chat with text, images, videos, files, and voice messages
+- One-on-one video/voice calls & group calls
+- Moments (timeline) posting and browsing
+- Contact management, QR code friend requests
+
+### 🔐 End-to-End Encryption
+- **E2EE**: All messages encrypted before sending; the server cannot read them
+- **Forward Secrecy**: Based on the Double Ratchet algorithm, each message uses a unique key
+- **Post-Quantum Encryption**: Integrated CRYSTALS-Kyber for resistance against quantum computing attacks
+- **Crypto Library**: libsodium (X25519, XSalsa20-Poly1305, Ed25519)
+
+### 🌐 Network Proxy
+- Supports **SOCKS5**, **HTTP**, and **HTTPS** proxy protocols
+- System-level transparent proxy — all HTTP and WebSocket traffic automatically routed through proxy
+- Multiple proxy profile management with one-click switching
+- Proxy latency testing
+- Persistent configuration, auto-restored on restart
+
+### 🖥️ Desktop Features
+- Cross-platform: macOS + Windows + Linux
+- macOS Universal Binary (Intel + Apple Silicon)
+- Adaptive desktop layout (min 375×600, default 1024×768)
+- Window position & size persistence
+- External links open in system browser
+- Dark mode support
+
+## 📦 Installation
+
+### Download from Releases
+
+Go to the [Releases](../../releases) page and download the installer for your platform:
+
+| Platform | File | Description |
+|----------|------|-------------|
+| macOS | `PaperPhone Plus-x.x.x-macOS.dmg` | DMG installer (Universal) |
+| macOS | `PaperPhone Plus-x.x.x-universal-mac.zip` | ZIP archive |
+| Windows | `PaperPhone Plus-x.x.x-Windows-Setup.exe` | NSIS installer |
+| Linux | `PaperPhone Plus-x.x.x-Linux.AppImage` | AppImage portable |
+
+### Build from Source
+
+#### Prerequisites
+
+- Node.js >= 18
+- npm >= 9
+
+#### Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/619dev/Paperphone-plus.git
+cd Paperphone-plus
+
+# Install dependencies
+npm install
+
+# Development mode (Vite HMR + Electron)
+npm run dev:electron
+
+# Production build
+npm run build
+
+# Package for macOS
+npm run build:mac
+
+# Package for Windows
+npm run build:win
+
+# Package for Linux
+npm run build:linux
+
+# Package for all platforms
+npm run build:all
+```
+
+## 🔧 Proxy Configuration
+
+1. Open the app and go to the login page
+2. Tap the proxy settings icon
+3. Add a proxy node (SOCKS5 / HTTP / HTTPS)
+4. Enter host, port, username (optional), and password (optional)
+5. Activate the proxy and test the connection
+
+The proxy is implemented via Electron's `session.setProxy()` API, transparently covering all network requests including WebSocket connections.
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────┐
+│            Electron Main Process         │
+│  ┌─────────┐  ┌──────────┐  ┌────────┐ │
+│  │  Proxy  │  │  Window  │  │  IPC   │ │
+│  │ Manager │  │ Manager  │  │Handler │ │
+│  └─────────┘  └──────────┘  └────────┘ │
+│       ↕ session.setProxy()    ↕ IPC     │
+├─────────────────────────────────────────┤
+│          Preload (contextBridge)         │
+├─────────────────────────────────────────┤
+│          Renderer (React 19 + Vite)      │
+│  ┌──────┐ ┌───────┐ ┌──────┐ ┌──────┐ │
+│  │Login │ │ Chats │ │Calls │ │Moments│ │
+│  └──────┘ └───────┘ └──────┘ └──────┘ │
+│  ┌─────────────────────────────────┐   │
+│  │  Crypto (libsodium + Kyber)     │   │
+│  │  Double Ratchet + E2EE          │   │
+│  └─────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+```
+
+### Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Desktop Framework | Electron 42 |
+| Frontend | React 19 + TypeScript 5.7 |
+| Build Tool | Vite 6 |
+| State Management | Zustand 5 |
+| Routing | React Router 7 |
+| Encryption | libsodium-wrappers-sumo + crystals-kyber-js |
+| Packaging | electron-builder |
+| Persistence | electron-store |
+
+## 📁 Project Structure
+
+```
+├── electron/
+│   ├── main.ts          # Main process: window, proxy, IPC
+│   └── preload.ts       # Preload: secure API bridge
+├── src/
+│   ├── api/             # HTTP, WebSocket, proxy bridge
+│   ├── components/      # UI components
+│   ├── contexts/        # React Context (calls, etc.)
+│   ├── crypto/          # E2EE encryption modules
+│   ├── hooks/           # Custom hooks
+│   ├── i18n/            # Internationalization
+│   ├── pages/           # Page components
+│   ├── store/           # Zustand state management
+│   ├── utils/           # Utility functions
+│   ├── electron.d.ts    # Electron API type declarations
+│   └── main.tsx         # React entry point
+├── build/               # App icon assets
+├── electron-builder.yml # Packaging configuration
+├── tsconfig.electron.json # Electron TypeScript config
+├── vite.config.ts       # Vite build configuration
+└── package.json         # Project configuration
+```
+
+## 📄 License
+
+This project is built upon [Paperphone-plus](https://github.com/619dev/Paperphone-plus).
