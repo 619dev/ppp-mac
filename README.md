@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Electron-42-47848F?style=flat-square&logo=electron" alt="Electron" />
+    <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
     <img src="https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite" alt="Vite" />
@@ -78,8 +78,8 @@ PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperpho
 
 ```bash
 # 克隆仓库
-git clone https://github.com/619dev/Paperphone-plus.git
-cd Paperphone-plus
+git clone https://github.com/619dev/ppp-mac.git
+cd ppp-mac
 
 # 安装依赖
 npm install
@@ -132,7 +132,7 @@ npm run build:mac
 
 | 层级 | 技术 |
 |------|------|
-| 桌面框架 | Electron 42 |
+| 桌面框架 | Electron 36 |
 | 前端框架 | React 19 + TypeScript 5.7 |
 | 构建工具 | Vite 6 |
 | 状态管理 | Zustand 5 |
@@ -156,8 +156,11 @@ npm run build:mac
 │   ├── pages/           # 页面组件
 │   ├── store/           # Zustand 状态管理
 │   ├── utils/           # 工具函数
+│   ├── App.tsx          # React 根组件
 │   ├── electron.d.ts    # Electron API 类型声明
-│   └── main.tsx         # React 入口
+│   ├── index.css        # 全局样式
+│   ├── main.tsx         # React 入口
+│   └── vite-env.d.ts    # Vite 类型声明
 ├── build/               # 应用图标资源
 ├── electron-builder.yml # 打包配置
 ├── tsconfig.electron.json # Electron TypeScript 配置
@@ -229,8 +232,8 @@ Go to the [Releases](../../releases) page and download the installer:
 
 ```bash
 # Clone the repository
-git clone https://github.com/619dev/Paperphone-plus.git
-cd Paperphone-plus
+git clone https://github.com/619dev/ppp-mac.git
+cd ppp-mac
 
 # Install dependencies
 npm install
@@ -283,7 +286,7 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 
 | Layer | Technology |
 |-------|-----------:|
-| Desktop Framework | Electron 42 |
+| Desktop Framework | Electron 36 |
 | Frontend | React 19 + TypeScript 5.7 |
 | Build Tool | Vite 6 |
 | State Management | Zustand 5 |
@@ -307,8 +310,11 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 │   ├── pages/           # Page components
 │   ├── store/           # Zustand state management
 │   ├── utils/           # Utility functions
+│   ├── App.tsx          # React root component
 │   ├── electron.d.ts    # Electron API type declarations
-│   └── main.tsx         # React entry point
+│   ├── index.css        # Global styles
+│   ├── main.tsx         # React entry point
+│   └── vite-env.d.ts    # Vite type declarations
 ├── build/               # App icon assets
 ├── electron-builder.yml # Packaging configuration
 ├── tsconfig.electron.json # Electron TypeScript config
