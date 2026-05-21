@@ -4,14 +4,14 @@
  * Renders in-app notification toasts at the top of the screen.
  * Imported at the App level, above all routes.
  */
-import { useNavigate } from 'react-router-dom'
 import { useNotificationStore } from '../store/notificationStore'
+import { useStore } from '../store'
 import { MessageCircle, Phone, X } from 'lucide-react'
 
 export default function NotificationToast() {
   const toasts = useNotificationStore((s) => s.toasts)
   const dismiss = useNotificationStore((s) => s.dismissToast)
-  const navigate = useNavigate()
+  const setActiveChat = useStore(s => s.setActiveChat)
 
   if (toasts.length === 0) return null
 
@@ -35,10 +35,7 @@ export default function NotificationToast() {
           onClick={() => {
             dismiss(toast.id)
             if (toast.chatId) {
-              const path = toast.isGroup
-                ? `/chat/${toast.chatId}?group=1`
-                : `/chat/${toast.chatId}`
-              navigate(path)
+              setActiveChat(toast.chatId, !!toast.isGroup)
             }
           }}
           style={{

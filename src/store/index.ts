@@ -120,6 +120,8 @@ export interface ProxyConfig {
   password: string
 }
 
+export type SidebarView = 'chats' | 'contacts' | 'discover'
+
 interface AppStore {
   // Server URL
   serverUrl: string
@@ -146,6 +148,18 @@ interface AppStore {
   // Language
   lang: string
   setLang: (lang: string) => void
+
+  // Desktop layout
+  activeChatId: string | null
+  activeChatIsGroup: boolean
+  sidebarView: SidebarView
+  sidebarWidth: number
+  mainView: 'chat' | 'profile' | 'userProfile' | 'groupInfo' | 'moments' | 'timeline' | 'privacy' | 'terms' | null
+  mainViewId: string | null
+  setActiveChat: (id: string | null, isGroup?: boolean) => void
+  setSidebarView: (view: SidebarView) => void
+  setSidebarWidth: (w: number) => void
+  setMainView: (view: 'chat' | 'profile' | 'userProfile' | 'groupInfo' | 'moments' | 'timeline' | 'privacy' | 'terms' | null, id?: string | null) => void
 
   // Friends
   friends: Friend[]
@@ -270,6 +284,26 @@ export const useStore = create<AppStore>((set, get) => ({
     document.documentElement.setAttribute('data-theme', next)
     set({ theme: next })
   },
+
+  // Desktop layout
+  activeChatId: null,
+  activeChatIsGroup: false,
+  sidebarView: 'chats',
+  sidebarWidth: parseInt(localStorage.getItem('sidebarWidth') || '360', 10),
+  mainView: null,
+  mainViewId: null,
+  setActiveChat: (id, isGroup = false) => {
+    set({ activeChatId: id, activeChatIsGroup: isGroup, mainView: id ? 'chat' : null, mainViewId: id })
+    if (id) {
+      get().clearUnread(id)
+    }
+  },
+  setSidebarView: (view) => set({ sidebarView: view }),
+  setSidebarWidth: (w) => {
+    localStorage.setItem('sidebarWidth', String(w))
+    set({ sidebarWidth: w })
+  },
+  setMainView: (view, id = null) => set({ mainView: view, mainViewId: id, activeChatId: view === 'chat' ? id : get().activeChatId }),
 
   // Language
   lang: localStorage.getItem('lang') || 'zh',

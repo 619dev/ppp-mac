@@ -1,18 +1,19 @@
-import { useNavigate } from 'react-router-dom'
+
 import { useI18n } from '../hooks/useI18n'
 import { useStore } from '../store'
 import { ChevronLeft, Shield, AlertTriangle, FileText, Users, Ban, Flag, Clock, Scale } from 'lucide-react'
 
-export default function TermsOfUse() {
+export default function TermsOfUse({ onBack }: { onBack?: () => void } = {}) {
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setMainView = useStore(s => s.setMainView)
+  const handleBack = onBack || (() => setMainView(null))
   const lang = useStore(s => s.lang)
   const isZH = lang === 'zh'
 
   return (
     <div className="page" id="terms-of-use-page">
       <div className="page-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
+        <button className="back-btn" onClick={handleBack}>
           <ChevronLeft size={20} />
         </button>
         <h1>{t('terms.title')}</h1>

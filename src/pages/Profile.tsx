@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useStore, ProxyConfig } from '../store'
 import { useI18n } from '../hooks/useI18n'
 import { clearKeys, getKeys } from '../crypto/keystore'
@@ -15,7 +14,7 @@ type SubView = null | 'password' | 'avatar' | '2fa' | 'sessions' | 'language' | 
 
 export default function Profile() {
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setMainView = useStore(s => s.setMainView)
   const user = useStore(s => s.user)
   const setAuth = useStore(s => s.setAuth)
   const theme = useStore(s => s.theme)
@@ -93,7 +92,6 @@ export default function Profile() {
     clearKeys()
     logoutOneSignal()
     logout()
-    navigate('/login')
   }
 
   // Delete account state
@@ -115,7 +113,6 @@ export default function Profile() {
       clearKeys()
       logoutOneSignal()
       logout()
-      navigate('/login')
     } catch (err: any) {
       setDeleteError(err.message || t('common.error'))
     } finally {
@@ -304,7 +301,7 @@ export default function Profile() {
 
         {/* About */}
         <div className="section-title">{t('profile.about')}</div>
-        <div className="settings-item" onClick={() => navigate('/privacy')}>
+        <div className="settings-item" onClick={() => setMainView('privacy')}>
           <span className="label"><FileText size={16} /> {t('privacy.title')}</span>
           <span className="arrow"><ChevronRight size={14} /></span>
         </div>

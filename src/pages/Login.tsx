@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { post, put } from '../api/http'
 import { useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
@@ -7,10 +6,12 @@ import { ShieldCheck, Lock, Shield, Link, Atom, Server, Wifi, ChevronDown, Chevr
 import { allLangs, langNames, LangCode } from '../i18n'
 import { generateKeyPair, generateSignKeyPair, signMessage, initSodium } from '../crypto/ratchet'
 import { setKeys, getKeys, loadFromIndexedDB } from '../crypto/keystore'
+import PrivacyPolicy from './PrivacyPolicy'
+import TermsOfUse from './TermsOfUse'
 
 export default function Login() {
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const [showPage, setShowPage] = useState<'privacy' | 'terms' | null>(null)
   const setAuth = useStore(s => s.setAuth)
   const lang = useStore(s => s.lang)
   const setLang = useStore(s => s.setLang)
@@ -174,7 +175,6 @@ export default function Login() {
         })
 
         setAuth(res.token, res.user)
-        navigate('/chats')
       } else {
         const res = await post('/api/auth/login', { username, password })
 
@@ -185,7 +185,6 @@ export default function Login() {
           setAuth(res.token, res.user)
           // Restore or generate keys after login
           await ensureKeysExist()
-          navigate('/chats')
         }
       }
     } catch (err: any) {
@@ -203,7 +202,6 @@ export default function Login() {
       const res = await post('/api/totp/verify', { login_token: loginToken, code: totpCode })
       setAuth(res.token, res.user)
       await ensureKeysExist()
-      navigate('/chats')
     } catch (err: any) {
       setError(err.message || t('common.error'))
     } finally {
@@ -232,6 +230,22 @@ export default function Login() {
             </button>
           </form>
         </div>
+      </div>
+    )
+  }
+
+  // Show inline privacy/terms page
+  if (showPage === 'privacy') {
+    return (
+      <div style={{ height: '100%', overflow: 'auto' }}>
+        <PrivacyPolicy onBack={() => setShowPage(null)} />
+      </div>
+    )
+  }
+  if (showPage === 'terms') {
+    return (
+      <div style={{ height: '100%', overflow: 'auto' }}>
+        <TermsOfUse onBack={() => setShowPage(null)} />
       </div>
     )
   }
@@ -577,7 +591,7 @@ export default function Login() {
           />
           <label htmlFor="terms-checkbox" style={{ lineHeight: 1.4 }}>
             {t('terms.agree_prefix')}
-            <a onClick={() => navigate('/terms')} style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 600 }}>
+            <a onClick={() => setShowPage('terms')} style={{ color: 'var(--accent)', cursor: 'pointer', fontWeight: 600 }}>
               {t('terms.agree_link')}
             </a>
           </label>
@@ -603,9 +617,9 @@ export default function Login() {
         </div>
 
         <div className="login-privacy-link" style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-          <a onClick={() => navigate('/terms')}>{t('terms.title')}</a>
+          <a onClick={() => setShowPage('terms')}>{t('terms.title')}</a>
           <span style={{ opacity: 0.3 }}>|</span>
-          <a onClick={() => navigate('/privacy')}>{t('privacy.title')}</a>
+          <a onClick={() => setShowPage('privacy')}>{t('privacy.title')}</a>
         </div>
       </div>
     </div>

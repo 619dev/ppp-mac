@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { get } from '../api/http'
 import { useStore, Friend, Group } from '../store'
 import { useI18n } from '../hooks/useI18n'
@@ -7,7 +6,7 @@ import { MessageCircle, Users } from 'lucide-react'
 
 export default function Chats() {
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setActiveChat = useStore(s => s.setActiveChat)
   const friends = useStore(s => s.friends)
   const groups = useStore(s => s.groups)
   const setFriends = useStore(s => s.setFriends)
@@ -103,7 +102,7 @@ export default function Chats() {
               id={`chat-${chat.id}`}
               onClick={() => {
                 clearUnread(chat.id)
-                navigate(chat.isGroup ? `/chat/${chat.id}?group=1` : `/chat/${chat.id}`)
+                setActiveChat(chat.id, chat.isGroup)
               }}
             >
               <div className="avatar" style={{ position: 'relative' }}>

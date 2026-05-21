@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { get, post, del, uploadFile as httpUploadFile, normalizeFileUrl } from '../api/http'
 import { useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
@@ -37,7 +36,7 @@ const MAX_VIDEO_MINUTES = 10
 
 export default function Timeline() {
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setMainView = useStore(s => s.setMainView)
   const user = useStore(s => s.user)
   const [posts, setPosts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -66,7 +65,7 @@ export default function Timeline() {
   return (
     <div className="page" id="timeline-page">
       <div className="page-header">
-        <button className="back-btn" onClick={() => navigate(-1)}><ChevronLeft size={20} /></button>
+        <button className="back-btn" onClick={() => setMainView(null)}><ChevronLeft size={20} /></button>
         <h1>{t('timeline.title')}</h1>
         <button className="btn btn-sm btn-primary" onClick={() => setShowComposer(true)} style={{ marginLeft: 'auto' }}>
           <Pencil size={14} /> {t('timeline.post')}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
 import { post } from '../api/http'
 import { QRScanner } from '../components/QRCode'
@@ -7,13 +7,14 @@ import { Camera, Newspaper, ScanLine, ChevronRight } from 'lucide-react'
 
 export default function Discover() {
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setMainView = useStore(s => s.setMainView)
+  const setActiveChat = useStore(s => s.setActiveChat)
   const [scanning, setScanning] = useState(false)
   const [scanResult, setScanResult] = useState('')
 
   const items = [
-    { icon: <Camera size={22} />, label: t('discover.moments'), path: '/moments' },
-    { icon: <Newspaper size={22} />, label: t('discover.timeline'), path: '/timeline' },
+    { icon: <Camera size={22} />, label: t('discover.moments'), view: 'moments' as const },
+    { icon: <Newspaper size={22} />, label: t('discover.timeline'), view: 'timeline' as const },
     { icon: <ScanLine size={22} />, label: t('discover.scan'), action: 'scan' },
   ]
 
@@ -23,18 +24,18 @@ export default function Discover() {
     if (data.startsWith('paperphone://friend/')) {
       const userId = data.replace('paperphone://friend/', '')
       if (userId) {
-        // Send friend request then navigate to user profile
+        // Send friend request then show user profile
         try {
           await post('/api/friends/request', { friend_id: userId })
         } catch {}
-        navigate(`/user/${userId}`)
+        setMainView('userProfile', userId)
       }
     } else if (data.startsWith('paperphone://invite/')) {
       const inviteId = data.replace('paperphone://invite/', '')
       if (inviteId) {
         try {
           const res = await post(`/api/groups/join/${inviteId}`)
-          if (res.group_id) navigate(`/group/${res.group_id}`)
+          if (res.group_id) setActiveChat(res.group_id, true)
         } catch {
           setScanResult(t('discover.invite_expired'))
           setTimeout(() => setScanResult(''), 3000)
@@ -43,7 +44,7 @@ export default function Discover() {
     } else if (data.startsWith('paperphone://group/')) {
       const groupId = data.replace('paperphone://group/', '')
       if (groupId) {
-        navigate(`/group/${groupId}`)
+        setActiveChat(groupId, true)
       }
     } else {
       setScanResult(data)
@@ -63,7 +64,7 @@ export default function Discover() {
             className="settings-item"
             onClick={() => {
               if (item.action === 'scan') setScanning(true)
-              else if (item.path) navigate(item.path)
+              else if (item.view) setMainView(item.view)
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>

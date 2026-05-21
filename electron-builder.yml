@@ -34,28 +34,3 @@ dmg:
       y: 220
       type: link
       path: /Applications
-
-# Windows
-win:
-  icon: build/icon.ico
-  target:
-    - target: nsis
-      arch:
-        - x64
-  artifactName: ${productName}-${version}-Windows-Setup.${ext}
-
-nsis:
-  oneClick: false
-  allowToChangeInstallationDirectory: true
-  createDesktopShortcut: always
-  createStartMenuShortcut: true
-  shortcutName: PaperPhone Plus
-
-# Linux (bonus)
-linux:
-  icon: build/icons
-  target:
-    - AppImage
-    - deb
-  category: Network
-  artifactName: ${productName}-${version}-Linux.${ext}

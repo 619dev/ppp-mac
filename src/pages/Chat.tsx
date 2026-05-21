@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useCallback, ReactNode } from 'react'
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import { useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
 import { useCallContext } from '../contexts/CallContext'
@@ -299,12 +298,11 @@ function ImageViewer({ src, onClose }: { src: string; onClose: () => void }) {
 
 const EMPTY_MSGS: any[] = []
 
-export default function Chat() {
-  const { id } = useParams<{ id: string }>()
-  const [searchParams] = useSearchParams()
-  const isGroup = searchParams.get('group') === '1'
+export default function Chat({ chatId, isGroup }: { chatId: string; isGroup: boolean }) {
+  const id = chatId
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setActiveChat = useStore(s => s.setActiveChat)
+  const setMainView = useStore(s => s.setMainView)
   const user = useStore(s => s.user)
   const messages = useStore(s => s.messages[id!] ?? EMPTY_MSGS)
   const setMessages = useStore(s => s.setMessages)
@@ -945,9 +943,9 @@ export default function Chat() {
       <input ref={fileInputRef} type="file" style={{ display: 'none' }} onChange={handleFileUpload} />
 
       <div className="page-header">
-        <button className="back-btn" onClick={() => navigate(-1)}><ChevronLeft size={20} /></button>
+        <button className="back-btn" onClick={() => setActiveChat(null)}><ChevronLeft size={20} /></button>
         <h1 style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}
-          onClick={() => isGroup ? navigate(`/group/${id}`) : navigate(`/user/${id}`)}>
+          onClick={() => isGroup ? setMainView('groupInfo', id) : setMainView('userProfile', id)}>
           {chatName}
           {!isGroup && <span style={{ fontSize: 14, opacity: 0.7 }} title={t('chat.e2e_enabled')}><Lock size={16} /></span>}
         </h1>

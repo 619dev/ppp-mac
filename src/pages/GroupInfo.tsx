@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
 import { get, post, put, del, uploadFileWithProgress } from '../api/http'
 import { useI18n } from '../hooks/useI18n'
 import { useStore } from '../store'
@@ -12,10 +11,11 @@ const INVITE_EXPIRY_OPTIONS = [
   { days: 90, key: 'group.qr_expire_3m' },
 ]
 
-export default function GroupInfo() {
-  const { id } = useParams<{ id: string }>()
+export default function GroupInfo({ groupId }: { groupId: string }) {
+  const id = groupId
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setActiveChat = useStore(s => s.setActiveChat)
+  const setMainView = useStore(s => s.setMainView)
   const user = useStore(s => s.user)
   const [group, setGroup] = useState<any>(null)
   const [editing, setEditing] = useState<'name' | 'notice' | null>(null)
@@ -296,7 +296,7 @@ export default function GroupInfo() {
       <input ref={avatarRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleAvatarChange} />
 
       <div className="page-header">
-        <button className="back-btn" onClick={() => navigate(-1)}><ChevronLeft size={20} /></button>
+        <button className="back-btn" onClick={() => setActiveChat(id, true)}><ChevronLeft size={20} /></button>
         <h1>{t('group.info')}</h1>
       </div>
 
@@ -388,7 +388,7 @@ export default function GroupInfo() {
           </div>
 
           {/* Send message */}
-          <div className="list-item" onClick={() => navigate(`/chat/${id}?group=1`)}
+          <div className="list-item" onClick={() => setActiveChat(id, true)}
             style={{ cursor: 'pointer', borderRadius: 12, marginBottom: 6 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ fontSize: 20 }}><MessageCircle size={18} /></span>
@@ -480,7 +480,7 @@ export default function GroupInfo() {
           </div>
 
           {group.members?.map((m: any) => (
-            <div key={m.id} className="list-item" onClick={() => navigate(`/user/${m.id}`)}
+            <div key={m.id} className="list-item" onClick={() => setMainView('userProfile', m.id)}
               style={{ cursor: 'pointer', borderRadius: 12, marginBottom: 4 }}>
               <div className="avatar avatar-sm">
                 {m.avatar ? <img src={m.avatar} alt="" /> : m.nickname?.[0]?.toUpperCase()}
@@ -513,7 +513,7 @@ export default function GroupInfo() {
                 await del(`/api/groups/${id}`)
                 const g = await get('/api/groups')
                 useStore.getState().setGroups(g)
-                navigate('/chats')
+                setActiveChat(null)
               } catch {}
             }}
               style={{
@@ -528,7 +528,7 @@ export default function GroupInfo() {
                 await post(`/api/groups/${id}/leave`)
                 const g = await get('/api/groups')
                 useStore.getState().setGroups(g)
-                navigate('/chats')
+                setActiveChat(null)
               } catch {}
             }}
               style={{

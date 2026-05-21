@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { get, post, del, put } from '../api/http'
 import { useStore, Friend, Group } from '../store'
 import { useI18n } from '../hooks/useI18n'
@@ -19,11 +18,11 @@ type AssignmentMap = Record<string, string[]>
 
 export default function Contacts() {
   const { t } = useI18n()
-  const navigate = useNavigate()
   const friends = useStore(s => s.friends)
   const groups = useStore(s => s.groups)
   const setFriends = useStore(s => s.setFriends)
   const setGroups = useStore(s => s.setGroups)
+  const setActiveChat = useStore(s => s.setActiveChat)
 
   const [tab, setTab] = useState<Tab>('friends')
   const [requests, setRequests] = useState<any[]>([])
@@ -151,7 +150,7 @@ export default function Contacts() {
       setSelectedMembers(new Set())
       // Refresh groups and navigate to new group
       get('/api/groups').then(setGroups).catch(() => {})
-      navigate(`/chat/${res.id}?group=1`)
+      setActiveChat(res.id, true)
     } catch (err: any) {
       alert(err.message || t('common.error'))
     }
@@ -271,7 +270,7 @@ export default function Contacts() {
         </div>
         <div className="page-body">
           {filtered.map(f => (
-            <div key={f.id} className="list-item" onClick={() => navigate(`/chat/${f.id}`)}>
+            <div key={f.id} className="list-item" onClick={() => setActiveChat(f.id, false)}>
               <div className="avatar" style={{ position: 'relative' }}>
                 {f.avatar ? <img src={f.avatar} alt="" /> : f.nickname[0]?.toUpperCase()}
                 {f.is_online && <span className="online-dot" />}
@@ -411,7 +410,7 @@ export default function Contacts() {
             {!groupByTag ? (
               // Flat list
               friends.map(f => (
-                <div key={f.id} className="list-item" onClick={() => navigate(`/chat/${f.id}`)}>
+                <div key={f.id} className="list-item" onClick={() => setActiveChat(f.id, false)}>
                   <div className="avatar" style={{ position: 'relative' }}>
                     {f.avatar ? <img src={f.avatar} alt="" /> : f.nickname[0]?.toUpperCase()}
                     {f.is_online && <span className="online-dot" />}
@@ -445,7 +444,7 @@ export default function Contacts() {
                       <span style={{ fontWeight: 400, color: 'var(--text-muted)', fontSize: 12 }}>({taggedFriends.length})</span>
                     </div>
                     {taggedFriends.map(f => (
-                      <div key={f.id} className="list-item" onClick={() => navigate(`/chat/${f.id}`)}>
+                      <div key={f.id} className="list-item" onClick={() => setActiveChat(f.id, false)}>
                         <div className="avatar" style={{ position: 'relative' }}>
                           {f.avatar ? <img src={f.avatar} alt="" /> : f.nickname[0]?.toUpperCase()}
                           {f.is_online && <span className="online-dot" />}
@@ -469,7 +468,7 @@ export default function Contacts() {
                       <span style={{ fontWeight: 400, fontSize: 12 }}>({untaggedFriends.length})</span>
                     </div>
                     {untaggedFriends.map(f => (
-                      <div key={f.id} className="list-item" onClick={() => navigate(`/chat/${f.id}`)}>
+                      <div key={f.id} className="list-item" onClick={() => setActiveChat(f.id, false)}>
                         <div className="avatar" style={{ position: 'relative' }}>
                           {f.avatar ? <img src={f.avatar} alt="" /> : f.nickname[0]?.toUpperCase()}
                           {f.is_online && <span className="online-dot" />}
@@ -500,7 +499,7 @@ export default function Contacts() {
               </button>
             </div>
             {groups.map(g => (
-              <div key={g.id} className="list-item" onClick={() => navigate(`/chat/${g.id}?group=1`)}>
+              <div key={g.id} className="list-item" onClick={() => setActiveChat(g.id, true)}>
                 <div className="avatar">{g.avatar ? <img src={g.avatar} alt="" /> : <Users size={20} />}</div>
                 <div className="list-content">
                   <div className="name">{g.name}</div>

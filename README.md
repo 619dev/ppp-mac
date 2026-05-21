@@ -1,11 +1,11 @@
 <div align="center">
   <img src="public/icons/icon-512.png" width="128" height="128" alt="PaperPhone Plus" style="border-radius: 24px;" />
   <h1>PaperPhone Plus Desktop</h1>
-  <p><strong>端对端加密即时通讯桌面客户端</strong></p>
-  <p><strong>End-to-End Encrypted Messaging Desktop Client</strong></p>
+  <p><strong>端对端加密即时通讯 macOS 桌面客户端</strong></p>
+  <p><strong>End-to-End Encrypted Messaging macOS Desktop Client</strong></p>
 
   <p>
-    <img src="https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue?style=flat-square" alt="Platform" />
+    <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
     <img src="https://img.shields.io/badge/Electron-42-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -24,7 +24,7 @@
 
 ## 📖 简介
 
-PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 的桌面客户端版本，基于 Electron 构建。它将原项目的 React 前端封装为原生桌面应用，提供完整的即时通讯功能，并内置网络代理支持。
+PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 的 macOS 桌面客户端版本，基于 Electron 构建。它将原项目的 React 前端封装为原生桌面应用，提供完整的即时通讯功能，并内置网络代理支持。
 
 ## ✨ 功能特性
 
@@ -48,9 +48,9 @@ PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperpho
 - 配置持久化，重启自动恢复
 
 ### 🖥️ 桌面特性
-- macOS + Windows + Linux 跨平台支持
 - macOS Universal Binary（同时支持 Intel 和 Apple Silicon）
-- 桌面自适应布局（最小 375×600，默认 1024×768）
+- Telegram 风格桌面横屏布局（左侧边栏 + 右侧主面板）
+- 侧边栏宽度可拖拽调整（280px–480px）
 - 窗口位置 & 大小记忆
 - 外部链接自动在系统浏览器中打开
 - 暗色模式支持
@@ -59,14 +59,12 @@ PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperpho
 
 ### 从 Release 下载
 
-前往 [Releases](../../releases) 页面下载对应平台的安装包：
+前往 [Releases](../../releases) 页面下载安装包：
 
-| 平台 | 文件 | 说明 |
-|------|------|------|
-| macOS | `PaperPhone Plus-x.x.x-macOS.dmg` | DMG 安装镜像（Universal） |
-| macOS | `PaperPhone Plus-x.x.x-universal-mac.zip` | ZIP 压缩包 |
-| Windows | `PaperPhone Plus-x.x.x-Windows-Setup.exe` | NSIS 安装程序 |
-| Linux | `PaperPhone Plus-x.x.x-Linux.AppImage` | AppImage 便携包 |
+| 文件 | 说明 |
+|------|------|
+| `PaperPhone Plus-x.x.x-macOS.dmg` | DMG 安装镜像（Universal） |
+| `PaperPhone Plus-x.x.x-universal-mac.zip` | ZIP 压缩包 |
 
 ### 从源码构建
 
@@ -74,6 +72,7 @@ PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperpho
 
 - Node.js >= 18
 - npm >= 9
+- macOS 系统
 
 #### 步骤
 
@@ -91,17 +90,8 @@ npm run dev:electron
 # 构建生产版本
 npm run build
 
-# 打包 macOS
+# 打包 macOS 安装包
 npm run build:mac
-
-# 打包 Windows
-npm run build:win
-
-# 打包 Linux
-npm run build:linux
-
-# 打包所有平台
-npm run build:all
 ```
 
 ## 🔧 代理配置
@@ -146,7 +136,6 @@ npm run build:all
 | 前端框架 | React 19 + TypeScript 5.7 |
 | 构建工具 | Vite 6 |
 | 状态管理 | Zustand 5 |
-| 路由 | React Router 7 |
 | 加密 | libsodium-wrappers-sumo + crystals-kyber-js |
 | 打包 | electron-builder |
 | 持久化 | electron-store |
@@ -186,7 +175,7 @@ npm run build:all
 
 ## 📖 Introduction
 
-PaperPhone Plus Desktop is the desktop client of [Paperphone-plus](https://github.com/619dev/Paperphone-plus), built with Electron. It wraps the original React frontend into a native desktop application with full instant messaging capabilities and built-in network proxy support.
+PaperPhone Plus Desktop is the macOS desktop client of [Paperphone-plus](https://github.com/619dev/Paperphone-plus), built with Electron. It wraps the original React frontend into a native desktop application with full instant messaging capabilities and built-in network proxy support.
 
 ## ✨ Features
 
@@ -210,9 +199,9 @@ PaperPhone Plus Desktop is the desktop client of [Paperphone-plus](https://githu
 - Persistent configuration, auto-restored on restart
 
 ### 🖥️ Desktop Features
-- Cross-platform: macOS + Windows + Linux
 - macOS Universal Binary (Intel + Apple Silicon)
-- Adaptive desktop layout (min 375×600, default 1024×768)
+- Telegram-style desktop layout (left sidebar + right main panel)
+- Draggable sidebar width (280px–480px)
 - Window position & size persistence
 - External links open in system browser
 - Dark mode support
@@ -221,14 +210,12 @@ PaperPhone Plus Desktop is the desktop client of [Paperphone-plus](https://githu
 
 ### Download from Releases
 
-Go to the [Releases](../../releases) page and download the installer for your platform:
+Go to the [Releases](../../releases) page and download the installer:
 
-| Platform | File | Description |
-|----------|------|-------------|
-| macOS | `PaperPhone Plus-x.x.x-macOS.dmg` | DMG installer (Universal) |
-| macOS | `PaperPhone Plus-x.x.x-universal-mac.zip` | ZIP archive |
-| Windows | `PaperPhone Plus-x.x.x-Windows-Setup.exe` | NSIS installer |
-| Linux | `PaperPhone Plus-x.x.x-Linux.AppImage` | AppImage portable |
+| File | Description |
+|------|-------------|
+| `PaperPhone Plus-x.x.x-macOS.dmg` | DMG installer (Universal) |
+| `PaperPhone Plus-x.x.x-universal-mac.zip` | ZIP archive |
 
 ### Build from Source
 
@@ -236,6 +223,7 @@ Go to the [Releases](../../releases) page and download the installer for your pl
 
 - Node.js >= 18
 - npm >= 9
+- macOS system
 
 #### Steps
 
@@ -255,15 +243,6 @@ npm run build
 
 # Package for macOS
 npm run build:mac
-
-# Package for Windows
-npm run build:win
-
-# Package for Linux
-npm run build:linux
-
-# Package for all platforms
-npm run build:all
 ```
 
 ## 🔧 Proxy Configuration
@@ -303,12 +282,11 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 ### Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
+|-------|-----------:|
 | Desktop Framework | Electron 42 |
 | Frontend | React 19 + TypeScript 5.7 |
 | Build Tool | Vite 6 |
 | State Management | Zustand 5 |
-| Routing | React Router 7 |
 | Encryption | libsodium-wrappers-sumo + crystals-kyber-js |
 | Packaging | electron-builder |
 | Persistence | electron-store |

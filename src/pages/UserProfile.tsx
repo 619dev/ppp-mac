@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
 import { get, post, put, del, normalizeFileUrl } from '../api/http'
 import { useStore } from '../store'
 import { useI18n } from '../hooks/useI18n'
 import { getKeys } from '../crypto/keystore'
 import { Camera, Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Film, Fingerprint, Lock, MessageCircle, Pencil, Phone, ShieldCheck, Flag, Ban } from 'lucide-react'
 
-export default function UserProfile() {
-  const { id } = useParams<{ id: string }>()
+export default function UserProfile({ userId }: { userId: string }) {
+  const id = userId
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setActiveChat = useStore(s => s.setActiveChat)
+  const setMainView = useStore(s => s.setMainView)
   const me = useStore(s => s.user)
   const friends = useStore(s => s.friends)
   const friend = friends.find(f => f.id === id)
@@ -234,7 +234,7 @@ export default function UserProfile() {
   return (
     <div className="page" id="user-profile-page">
       <div className="page-header">
-        <button className="back-btn" onClick={() => navigate(-1)}><ChevronLeft size={20} /></button>
+        <button className="back-btn" onClick={() => setActiveChat(id, false)}><ChevronLeft size={20} /></button>
         <h1>{displayName}</h1>
       </div>
       <div className="page-body">
@@ -264,10 +264,10 @@ export default function UserProfile() {
             {user.is_online ? '● ' + t('contacts.online') : '○ ' + t('contacts.offline')}
           </div>
           <div style={{ display: 'flex', gap: 12, width: '100%', maxWidth: 280 }}>
-            <button className="btn btn-primary btn-full" onClick={() => navigate(`/chat/${id}`)}>
+            <button className="btn btn-primary btn-full" onClick={() => setActiveChat(id, false)}>
               <MessageCircle size={16} /> {t('chat.send')}
             </button>
-            <button className="btn btn-secondary btn-full" onClick={() => navigate(`/chat/${id}`)}>
+            <button className="btn btn-secondary btn-full" onClick={() => setActiveChat(id, false)}>
               <Phone size={16} /> {t('call.voice')}
             </button>
           </div>

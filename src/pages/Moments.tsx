@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { get, post, del, uploadFile as httpUploadFile, normalizeFileUrl } from '../api/http'
 import { useStore, Friend } from '../store'
 import { useI18n } from '../hooks/useI18n'
@@ -39,7 +38,7 @@ interface Tag { id: number; name: string; color: string }
 
 export default function Moments() {
   const { t } = useI18n()
-  const navigate = useNavigate()
+  const setMainView = useStore(s => s.setMainView)
   const user = useStore(s => s.user)
   const friends = useStore(s => s.friends)
   const [moments, setMoments] = useState<any[]>([])
@@ -123,7 +122,7 @@ export default function Moments() {
   return (
     <div className="page" id="moments-page">
       <div className="page-header">
-        <button className="back-btn" onClick={() => navigate(-1)}><ChevronLeft size={20} /></button>
+        <button className="back-btn" onClick={() => setMainView(null)}><ChevronLeft size={20} /></button>
         <h1>{t('moments.title')}</h1>
         <button
           className="btn btn-sm btn-primary"
