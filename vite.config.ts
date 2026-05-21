@@ -34,8 +34,8 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['libsodium-wrappers-sumo'],
   },
-  // For Electron production: use relative paths so files load from file:// protocol
-  base: isElectron ? './' : '/',
+  // Desktop-only: always use relative paths for Electron file:// protocol
+  base: './',
   build: {
     outDir: 'dist',
     // Ensure assets use relative paths for Electron file:// loading
