@@ -24,6 +24,11 @@ mac:
         - universal
   darkModeSupport: true
   hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  identity: "YIJIE LIU (J69ASPPPY9)"
+  notarize: true
 
 dmg:
   artifactName: ${productName}-${version}-macOS.${ext}
