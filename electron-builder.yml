@@ -28,7 +28,7 @@ mac:
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.plist
   identity: "YIJIE LIU (J69ASPPPY9)"
-  notarize: true
+  notarize: false
 
 dmg:
   artifactName: ${productName}-${version}-macOS.${ext}

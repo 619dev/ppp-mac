@@ -822,38 +822,34 @@ textarea.input {
 .login-page {
   height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: linear-gradient(160deg,
-    #f5f0e8 0%,
-    #ede4d4 30%,
-    #d4c5a9 70%,
-    #c7b898 100%);
+  flex-direction: row;
+  align-items: stretch;
+  background: var(--bg-primary);
   position: relative;
   overflow: hidden;
 }
 
-/* Ambient light orbs */
+/* Left branding panel */
 .login-page::before {
   content: '';
   position: absolute;
-  top: -120px; right: -80px;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(212, 160, 23, 0.25) 0%, transparent 70%);
+  top: -120px; left: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.12) 0%, transparent 70%);
   border-radius: 50%;
   animation: float-orb 6s ease-in-out infinite;
+  z-index: 0;
 }
 
 .login-page::after {
   content: '';
   position: absolute;
-  bottom: -100px; left: -60px;
-  width: 250px; height: 250px;
-  background: radial-gradient(circle, rgba(212, 160, 23, 0.15) 0%, transparent 70%);
+  bottom: -100px; right: -60px;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.08) 0%, transparent 70%);
   border-radius: 50%;
   animation: float-orb 8s ease-in-out infinite reverse;
+  z-index: 0;
 }
 
 @keyframes float-orb {
@@ -878,11 +874,14 @@ textarea.input {
 
 .login-card {
   width: 100%;
-  max-width: 380px;
-  padding: 36px 28px;
+  max-width: 480px;
+  margin: auto;
+  padding: 40px 48px;
   border-radius: var(--radius-xl);
   position: relative;
   z-index: 1;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 .login-logo {
