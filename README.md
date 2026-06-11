@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
     <img src="https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite" alt="Vite" />
-    <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License" />
+    <img src="https://img.shields.io/badge/License-AGPL--3.0-blue?style=flat-square" alt="License" />
   </p>
 </div>
 
@@ -170,7 +170,7 @@ npm run build:mac
 
 ## 📄 许可证
 
-本项目基于 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 开发。
+本项目基于 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 开发，采用 [AGPL-3.0](LICENSE) 许可证发布。
 
 ---
 
@@ -324,4 +324,4 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 
 ## 📄 License
 
-This project is built upon [Paperphone-plus](https://github.com/619dev/Paperphone-plus).
+This project is built upon [Paperphone-plus](https://github.com/619dev/Paperphone-plus) and is licensed under the [AGPL-3.0](LICENSE).
