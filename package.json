@@ -2,7 +2,7 @@
   "name": "paperphone-plus-desktop",
   "private": true,
   "license": "AGPL-3.0-only",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "type": "module",
   "main": "dist-electron/main.cjs",
   "scripts": {
