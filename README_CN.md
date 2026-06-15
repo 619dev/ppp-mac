@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="public/icons/icon-512.png" width="128" height="128" alt="PaperPhone Plus" style="border-radius: 24px;" />
-  <h1>PaperPhone Plus Desktop</h1>
+  <img src="public/icons/icon-512.png" width="128" height="128" alt="PaperPhonePlus" style="border-radius: 24px;" />
+  <h1>PaperPhonePlus Desktop</h1>
   <p><strong>端对端加密即时通讯 macOS 桌面客户端</strong></p>
 
   <p>
@@ -17,7 +17,7 @@
 
 ## 📖 简介
 
-PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 的 macOS 桌面客户端版本，基于 Electron 构建。它将原项目的 React 前端封装为原生桌面应用，提供完整的即时通讯功能，并内置网络代理支持。
+PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 的 macOS 桌面客户端版本，基于 Electron 构建。它将原项目的 React 前端封装为原生桌面应用，提供完整的即时通讯功能，并内置网络代理支持。
 
 ## ✨ 功能特性
 
@@ -56,8 +56,8 @@ PaperPhone Plus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperpho
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhone Plus-x.x.x-macOS.dmg` | DMG 安装镜像（Universal） |
-| `PaperPhone Plus-x.x.x-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-x.x.x-macOS.dmg` | DMG 安装镜像（Universal） |
+| `PaperPhonePlus-x.x.x-universal-mac.zip` | ZIP 压缩包 |
 
 ### 从源码构建
 

@@ -141,7 +141,7 @@ function createWindow(): void {
     y: bounds.y,
     minWidth: 375,
     minHeight: 600,
-    title: 'PaperPhone Plus',
+    title: 'PaperPhonePlus',
     icon: icon as any,
     titleBarStyle: 'default',
     trafficLightPosition: { x: 12, y: 12 },
