@@ -5,6 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
+    <img src="https://img.shields.io/badge/Version-1.1.3-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -23,7 +24,10 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 ### 💬 Instant Messaging
 - Private & group chat with text, images, videos, files, and voice messages
-- One-on-one video/voice calls & group calls
+- One-on-one video and voice calls
+- LiveKit SFU group video meetings for up to 100 participants
+- Video grid, participant panel, active-speaker and media-state indicators
+- Host controls for mute-all, lecture mode, and open discussion
 - Moments (timeline) posting and browsing
 - Contact management, QR code friend requests
 
@@ -56,8 +60,27 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-x.x.x-macOS.dmg` | DMG installer (Universal) |
-| `PaperPhonePlus-x.x.x-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-1.1.3-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-1.1.3-universal-mac.zip` | ZIP archive |
+
+The installer supports both Intel and Apple Silicon Macs and is signed with a Developer ID certificate. Version 1.1.3 is not yet notarized by Apple. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
+
+## 🎥 Video Meetings
+
+1. Open a group chat and select the voice- or video-meeting button.
+2. On first use, grant microphone and camera access when prompted by macOS.
+3. The group owner is the meeting host and can mute everyone or switch between lecture and discussion modes.
+4. In lecture mode, regular participants remain muted; they can unmute after the host returns the room to discussion mode.
+
+Group meetings use a LiveKit SFU. The Mac client requires an updated Paperphone-plus server exposing `/api/calls/meeting-token`. Configure these production environment variables on the server:
+
+```text
+LIVEKIT_URL=wss://meeting.example.com
+LIVEKIT_API_KEY=<API key>
+LIVEKIT_API_SECRET=<secret of at least 32 bytes>
+```
+
+LiveKit and the Paperphone-plus server must use the same key and secret. Production deployments should also expose TCP 7881 and UDP 7882; TURN/TLS is recommended for restrictive networks.
 
 ### Build from Source
 
@@ -129,6 +152,7 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 | Frontend | React 19 + TypeScript 5.7 |
 | Build Tool | Vite 6 |
 | State Management | Zustand 5 |
+| Video Meetings | LiveKit Client 2.20 (SFU) |
 | Encryption | libsodium-wrappers-sumo + crystals-kyber-js |
 | Packaging | electron-builder |
 | Persistence | electron-store |

@@ -5,6 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
+    <img src="https://img.shields.io/badge/Version-1.1.3-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -23,7 +24,10 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ### 💬 即时通讯
 - 私聊 & 群聊，支持文字、图片、视频、文件、语音消息
-- 一对一视频/语音通话 & 群组通话
+- 一对一视频/语音通话
+- 基于 LiveKit SFU 的群组视频会议，支持最高 100 人
+- 视频网格、参会者列表、发言状态及摄像头/静音状态显示
+- 主席全员静音，以及讲课模式与自由讨论模式
 - 朋友圈（Moments）动态发布与浏览
 - 联系人管理、扫码添加好友
 
@@ -56,8 +60,27 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-x.x.x-macOS.dmg` | DMG 安装镜像（Universal） |
-| `PaperPhonePlus-x.x.x-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-1.1.3-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhonePlus-1.1.3-universal-mac.zip` | ZIP 压缩包 |
+
+当前安装包同时支持 Intel 和 Apple Silicon Mac，并使用 Developer ID 签名。由于 1.1.3 尚未进行 Apple 公证，如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
+
+## 🎥 视频会议
+
+1. 进入群聊，点击语音会议或视频会议按钮。
+2. 首次使用时，按 macOS 提示授予麦克风和摄像头权限。
+3. 群主作为会议主席，可以执行全员静音，并在讲课模式与自由讨论模式之间切换。
+4. 讲课模式下，普通参会者默认保持静音；切回自由讨论模式后可自行解除静音。
+
+群组会议使用 LiveKit SFU。Mac 客户端必须连接到包含 `/api/calls/meeting-token` 接口的新版 Paperphone-plus 服务端。服务端生产环境需配置：
+
+```text
+LIVEKIT_URL=wss://meeting.example.com
+LIVEKIT_API_KEY=<API key>
+LIVEKIT_API_SECRET=<至少 32 字节的 secret>
+```
+
+LiveKit 与 Paperphone-plus 服务端必须使用相同的 key 和 secret。生产环境还需开放 TCP 7881 和 UDP 7882；复杂网络环境建议配置 TURN/TLS。
 
 ### 从源码构建
 
@@ -129,6 +152,7 @@ npm run build:mac
 | 前端框架 | React 19 + TypeScript 5.7 |
 | 构建工具 | Vite 6 |
 | 状态管理 | Zustand 5 |
+| 视频会议 | LiveKit Client 2.20（SFU） |
 | 加密 | libsodium-wrappers-sumo + crystals-kyber-js |
 | 打包 | electron-builder |
 | 持久化 | electron-store |

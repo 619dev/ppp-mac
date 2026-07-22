@@ -29,6 +29,9 @@ mac:
   entitlementsInherit: build/entitlements.mac.plist
   identity: "YIJIE LIU (J69ASPPPY9)"
   notarize: false
+  extendInfo:
+    NSCameraUsageDescription: PaperPhonePlus 需要访问摄像头以进行视频会议。
+    NSMicrophoneUsageDescription: PaperPhonePlus 需要访问麦克风以进行语音和视频会议。
 
 dmg:
   artifactName: ${productName}-${version}-macOS.${ext}
