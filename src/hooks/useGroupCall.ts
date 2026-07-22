@@ -7,6 +7,7 @@ import {
 import { post } from '../api/http'
 import { onWs, sendWs } from '../api/socket'
 import { playCallRingtone, showBrowserNotification, stopRingtone } from '../utils/notification'
+import { useI18n } from './useI18n'
 
 export type GroupCallStatus = 'idle' | 'ringing' | 'connecting' | 'connected'
 export type MeetingMode = 'discussion' | 'lecture'
@@ -30,6 +31,7 @@ const decoder = new TextDecoder()
 const encoder = new TextEncoder()
 
 export function useGroupCall(userId: string | undefined) {
+  const { t } = useI18n()
   const [status, setStatus] = useState<GroupCallStatus>('idle')
   const [callId, setCallId] = useState<string | null>(null)
   const [groupId, setGroupId] = useState<string | null>(null)
@@ -45,7 +47,6 @@ export function useGroupCall(userId: string | undefined) {
   const [meetingMode, setMeetingMode] = useState<MeetingMode>('discussion')
   const [error, setError] = useState('')
   const [localStream, setLocalStream] = useState<MediaStream | null>(null)
-  const [maxParticipants, setMaxParticipants] = useState(100)
 
   const roomRef = useRef<Room | null>(null)
   const callIdRef = useRef<string | null>(null)
@@ -118,14 +119,12 @@ export function useGroupCall(userId: string | undefined) {
     setIsMuted(false); setIsCameraOff(false); setDuration(0); setPeers(new Map())
     setLocalStream(null); setInviterName(''); setInviterAvatar(''); setGroupName('')
     setIsHost(false); setMeetingMode('discussion')
-    setMaxParticipants(100)
     setError('')
   }, [])
 
   const connectMeeting = useCallback(async (gid: string, cid: string, video: boolean) => {
     setError('')
     const auth = await post<TokenResponse>('/api/calls/meeting-token', { group_id: gid, call_id: cid })
-    setMaxParticipants(auth.max_participants)
     const room = new Room({ adaptiveStream: true, dynacast: true, disconnectOnPageLeave: true })
     roomRef.current = room
     setIsHost(auth.is_host)
@@ -175,9 +174,9 @@ export function useGroupCall(userId: string | undefined) {
       sendWs({ type: 'group_call_invite', group_id: gid, call_id: cid, is_video: video })
     } catch (e) {
       cleanup()
-      setError(e instanceof Error ? e.message : '无法连接会议服务器')
+      setError(e instanceof Error ? e.message : t('meeting.connection_failed'))
     }
-  }, [cleanup, connectMeeting])
+  }, [cleanup, connectMeeting, t])
 
   const acceptGroupCall = useCallback(async () => {
     if (!groupIdRef.current || !callIdRef.current) return
@@ -187,9 +186,9 @@ export function useGroupCall(userId: string | undefined) {
       sendWs({ type: 'group_call_join', group_id: groupIdRef.current, call_id: callIdRef.current })
     } catch (e) {
       cleanup()
-      setError(e instanceof Error ? e.message : '无法连接会议服务器')
+      setError(e instanceof Error ? e.message : t('meeting.connection_failed'))
     }
-  }, [cleanup, connectMeeting])
+  }, [cleanup, connectMeeting, t])
 
   const leaveGroupCall = useCallback(() => {
     if (groupIdRef.current && callIdRef.current) sendWs({ type: 'group_call_leave', group_id: groupIdRef.current, call_id: callIdRef.current })
@@ -226,15 +225,15 @@ export function useGroupCall(userId: string | undefined) {
       setCallId(data.call_id); setGroupId(data.group_id); setIsVideo(!!data.is_video)
       setInviterName(data.from_nickname || data.from || ''); setInviterAvatar(data.from_avatar || '')
       setGroupName(data.group_name || ''); setStatus('ringing'); playCallRingtone()
-      showBrowserNotification('PaperPhonePlus', data.is_video ? '群视频会议' : '群语音会议', () => window.focus())
+      showBrowserNotification('PaperPhonePlus', t(data.is_video ? 'meeting.video_title' : 'meeting.voice_title'), () => window.focus())
     })
     return off
-  }, [userId])
+  }, [t, userId])
 
   useEffect(() => () => cleanup(), [cleanup])
 
   return { status, callId, groupId, isVideo, isMuted, isCameraOff, duration, peers, localStream,
-    inviterName, inviterAvatar, groupName, isHost, meetingMode, error, maxParticipants,
+    inviterName, inviterAvatar, groupName, isHost, meetingMode, error, maxParticipants: 100,
     startGroupCall, acceptGroupCall, rejectGroupCall: cleanup, leaveGroupCall, toggleMute,
     toggleCamera, muteAll, setMeetingMode: setMode, cleanup,
   }

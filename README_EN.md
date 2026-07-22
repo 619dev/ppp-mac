@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.3-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.1.5-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -60,10 +60,10 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-1.1.3-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-1.1.3-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-1.1.5-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-1.1.5-universal-mac.zip` | ZIP archive |
 
-The installer supports both Intel and Apple Silicon Macs and is signed with a Developer ID certificate. Version 1.1.3 is not yet notarized by Apple. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
+The installer supports both Intel and Apple Silicon Macs and is signed with a Developer ID certificate. Version 1.1.5 is not yet notarized by Apple. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 
 ## 🎥 Video Meetings
 
