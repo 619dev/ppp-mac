@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.1.6-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -21,6 +21,13 @@
 PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://github.com/619dev/Paperphone-plus), built with Electron. It wraps the original React frontend into a native desktop application with full instant messaging capabilities and built-in network proxy support.
 
 ## ✨ Features
+
+### 🆕 What's New in 1.1.6
+- Fixed local and remote video attachment in one-on-one calls
+- Fixed username searches while composing Chinese text with an IME
+- Improved session handling so temporary network or authorization failures do not incorrectly clear local login state
+- Added offline caching for contacts, groups, messages, Moments, and Timeline
+- Added a cache cleanup option to Settings
 
 ### 💬 Instant Messaging
 - Private & group chat with text, images, videos, files, and voice messages
@@ -60,10 +67,10 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-1.1.5-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-1.1.5-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-1.1.6-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-1.1.6-universal-mac.zip` | ZIP archive |
 
-The installer supports both Intel and Apple Silicon Macs and is signed with a Developer ID certificate. Version 1.1.5 is not yet notarized by Apple. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
+The installer supports both Intel and Apple Silicon Macs, uses an ad-hoc local signature, and is not notarized by Apple. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 
 ## 🎥 Video Meetings
 

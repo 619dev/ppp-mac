@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.1.6-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 1.1.5 / 版本 1.1.5
+## ✨ Version 1.1.6 / 版本 1.1.6
+
+Improves one-on-one video calls and session handling, fixes Chinese username search with IMEs, and adds deeper offline caching with a user-accessible cache cleanup option.
+
+改进一对一视频通话和会话状态处理，修复中文输入法下的用户名搜索，并新增更完整的离线缓存及用户可操作的缓存清理功能。
+
+## Version 1.1.5 / 版本 1.1.5
 
 Adds LiveKit SFU group video meetings for up to 100 participants, including a video grid, participant panel, mute-all controls, and lecture/discussion modes.
 

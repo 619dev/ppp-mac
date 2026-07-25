@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.1.6-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -21,6 +21,13 @@
 PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphone-plus) 的 macOS 桌面客户端版本，基于 Electron 构建。它将原项目的 React 前端封装为原生桌面应用，提供完整的即时通讯功能，并内置网络代理支持。
 
 ## ✨ 功能特性
+
+### 🆕 1.1.6 更新
+- 修复一对一视频通话中本地及远端画面未正确挂载的问题
+- 修复中文输入法组合输入时用户名搜索失效或使用旧文本的问题
+- 优化登录会话处理，临时网络或鉴权异常不再错误清除本地登录状态
+- 新增好友、群组、消息、朋友圈和时间线的离线缓存
+- 新增设置页面缓存清理入口
 
 ### 💬 即时通讯
 - 私聊 & 群聊，支持文字、图片、视频、文件、语音消息
@@ -60,10 +67,10 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-1.1.5-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhonePlus-1.1.5-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-1.1.6-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhonePlus-1.1.6-universal-mac.zip` | ZIP 压缩包 |
 
-当前安装包同时支持 Intel 和 Apple Silicon Mac，并使用 Developer ID 签名。由于 1.1.5 尚未进行 Apple 公证，如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
+当前安装包同时支持 Intel 和 Apple Silicon Mac，并使用 ad-hoc 本地签名，尚未进行 Apple 公证。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 
 ## 🎥 视频会议
 
