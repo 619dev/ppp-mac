@@ -15,6 +15,10 @@ publish: null
 mac:
   category: public.app-category.social-networking
   icon: build/icon.icns
+  # A distributable DMG must never be produced without a valid Developer ID
+  # signature. electron-builder will auto-discover a valid identity from the
+  # keychain, or use CSC_LINK/CSC_KEY_PASSWORD in CI.
+  forceCodeSigning: true
   target:
     - target: dmg
       arch:
@@ -27,8 +31,7 @@ mac:
   gatekeeperAssess: false
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.plist
-  identity: "YIJIE LIU (J69ASPPPY9)"
-  notarize: false
+  notarize: true
   extendInfo:
     NSCameraUsageDescription: PaperPhonePlus 需要访问摄像头以进行视频会议。
     NSMicrophoneUsageDescription: PaperPhonePlus 需要访问麦克风以进行语音和视频会议。
