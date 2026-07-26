@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.6-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.1.7-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 1.1.6 / 版本 1.1.6
+## ✨ Version 1.1.7 / 版本 1.1.7
+
+Fixes unread message counters being incremented repeatedly when cached offline messages are replayed after reconnecting, and reliably clears the counter when a chat is opened from a notification or deep link.
+
+修复重连后离线缓存消息重复推送导致未读数字反复增加的问题，并确保从通知或深链接进入聊天时正确清除未读数字。
+
+## Version 1.1.6 / 版本 1.1.6
 
 Improves one-on-one video calls and session handling, fixes Chinese username search with IMEs, and adds deeper offline caching with a user-accessible cache cleanup option.
 
