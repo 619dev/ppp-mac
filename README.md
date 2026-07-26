@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.7-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.1.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 1.1.7 / 版本 1.1.7
+## ✨ Version 1.1.8 / 版本 1.1.8
+
+Improves the chat composer layout and multiline editing, fixes remote audio playback in one-on-one calls, and makes voice effects switch reliably during a call.
+
+优化聊天输入区布局和多行编辑体验，修复一对一通话的远端音频播放，并提升通话中变声模式切换的可靠性。
+
+## Version 1.1.7 / 版本 1.1.7
 
 Fixes unread message counters being incremented repeatedly when cached offline messages are replayed after reconnecting, and reliably clears the counter when a chat is opened from a notification or deep link.
 

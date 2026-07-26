@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.7-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-1.1.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,14 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ## ✨ 功能特性
 
-### 🆕 1.1.7 更新
+### 🆕 1.1.8 更新
+- 优化聊天输入区布局，支持输入框随多行内容自动扩展
+- 调整语音、表情、更多附件和发送按钮的交互与排列
+- 修复一对一语音及视频通话中远端音频可能无法播放的问题
+- 修复通话期间切换正常、慢速和快速变声模式不生效的问题
+- 优化视频通话中的联系人信息显示，避免遮挡远端画面
+
+### 1.1.7 更新
 - 修复重连后离线缓存消息重复推送导致未读数字反复增加的问题
 - 仅在新消息真正写入本地缓存时增加未读数并触发通知
 - 修复从通知或深链接直接进入聊天时未读数字未清除的问题
@@ -72,10 +79,10 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-1.1.7-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhonePlus-1.1.7-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-1.1.8-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhonePlus-1.1.8-universal-mac.zip` | ZIP 压缩包 |
 
-当前安装包同时支持 Intel 和 Apple Silicon Mac，并已使用 Developer ID 签名，但尚未完成 Apple 公证。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
+当前安装包同时支持 Intel 和 Apple Silicon Mac，但尚未完成 Apple Developer ID 分发签名与公证。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 
 ## 🎥 视频会议
 
