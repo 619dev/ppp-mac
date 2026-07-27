@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.8-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.2.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ## ✨ 功能特性
 
-### 🆕 1.1.8 更新
+### 🆕 2.2.8 更新
+- 新增消息引用回复，可在私聊和群聊中查看被引用消息
+- 一对一语音及视频通话全面迁移至 LiveKit SFU
+- 优化通话响铃、接听、重连、挂断和媒体轨道生命周期处理
+- 补充消息引用相关的多语言文案，并完善资料页的推送权限提示
+
+### 1.1.8 更新
 - 优化聊天输入区布局，支持输入框随多行内容自动扩展
 - 调整语音、表情、更多附件和发送按钮的交互与排列
 - 修复一对一语音及视频通话中远端音频可能无法播放的问题
@@ -79,10 +85,10 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-1.1.8-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhonePlus-1.1.8-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-2.2.8-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhonePlus-2.2.8-universal-mac.zip` | ZIP 压缩包 |
 
-当前安装包同时支持 Intel 和 Apple Silicon Mac，但尚未完成 Apple Developer ID 分发签名与公证。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
+当前安装包同时支持 Intel 和 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 
 ## 🎥 视频会议
 
@@ -91,7 +97,7 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 3. 群主作为会议主席，可以执行全员静音，并在讲课模式与自由讨论模式之间切换。
 4. 讲课模式下，普通参会者默认保持静音；切回自由讨论模式后可自行解除静音。
 
-群组会议使用 LiveKit SFU。Mac 客户端必须连接到包含 `/api/calls/meeting-token` 接口的新版 Paperphone-plus 服务端。服务端生产环境需配置：
+群组会议及一对一通话均使用 LiveKit SFU。Mac 客户端必须连接到包含 `/api/calls/meeting-token` 和 `/api/calls/direct-token` 接口的新版 Paperphone-plus 服务端。服务端生产环境需配置：
 
 ```text
 LIVEKIT_URL=wss://meeting.example.com

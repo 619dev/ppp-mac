@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-1.1.8-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.2.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 ## ✨ Features
 
-### 🆕 What's New in 1.1.8
+### 🆕 What's New in 2.2.8
+- Added quoted-message replies in private and group chats
+- Migrated one-on-one voice and video calls to the LiveKit SFU
+- Improved ringing, answering, reconnection, hang-up, and media-track lifecycle handling
+- Added localized quoted-message text and improved push-permission guidance in Profile
+
+### What's New in 1.1.8
 - Improved the chat composer layout with automatic multiline expansion
 - Refined the voice, emoji, attachment, and send-button interactions
 - Fixed missing remote audio in one-on-one voice and video calls
@@ -79,10 +85,10 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-1.1.8-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-1.1.8-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-2.2.8-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-2.2.8-universal-mac.zip` | ZIP archive |
 
-The installer supports both Intel and Apple Silicon Macs, but has not yet received an Apple Developer ID distribution signature or notarization. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
+The installer supports both Intel and Apple Silicon Macs and is signed with an Apple Developer ID certificate. This build does not yet have an Apple notarization ticket stapled to it. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 
 ## 🎥 Video Meetings
 
@@ -91,7 +97,7 @@ The installer supports both Intel and Apple Silicon Macs, but has not yet receiv
 3. The group owner is the meeting host and can mute everyone or switch between lecture and discussion modes.
 4. In lecture mode, regular participants remain muted; they can unmute after the host returns the room to discussion mode.
 
-Group meetings use a LiveKit SFU. The Mac client requires an updated Paperphone-plus server exposing `/api/calls/meeting-token`. Configure these production environment variables on the server:
+Group meetings and one-on-one calls use a LiveKit SFU. The Mac client requires an updated Paperphone-plus server exposing `/api/calls/meeting-token` and `/api/calls/direct-token`. Configure these production environment variables on the server:
 
 ```text
 LIVEKIT_URL=wss://meeting.example.com
