@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.2.8-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.2.9-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 2.2.8 / 版本 2.2.8
+## ✨ Version 2.2.9 / 版本 2.2.9
+
+Adds persistent sticker caching for sticker-pack metadata and media, enabling faster loading and reliable reuse during server failures or offline sessions.
+
+新增贴纸包元数据及贴纸媒体的持久化缓存，加快贴纸加载，并在服务异常或离线时可靠复用已缓存内容。
+
+## Version 2.2.8 / 版本 2.2.8
 
 Adds quoted-message replies, moves one-on-one voice and video calls to the LiveKit SFU, and improves call lifecycle handling and localized UI text.
 
