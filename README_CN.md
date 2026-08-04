@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.2.9-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.3.1-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ## ✨ 功能特性
 
-### 🆕 2.2.9 更新
+### 🆕 2.3.1 更新
+- 新增刷新令牌持久化与访问令牌自动续期，减少短期令牌过期导致的重复登录
+- 增强 WebSocket 鉴权、心跳检测与指数退避重连，并在网络恢复、页面唤醒或应用回到前台时主动恢复连接
+- 重连成功后自动同步漏收消息，按服务端序列号去重并更新本地同步游标
+- 新增持久化发送队列、客户端消息 ID 和送达确认，离线消息可在恢复连接后可靠重发
+
+### 2.2.9 更新
 - 新增贴纸包列表及内容的本地持久化缓存，服务异常或离线时仍可加载已缓存贴纸
 - 新增独立的贴纸媒体缓存，按稳定的 `file_id` 复用静态、动态及视频贴纸
 - 发送贴纸前完成本地缓存，并统一聊天消息与贴纸面板的缓存渲染逻辑
@@ -91,8 +97,8 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-2.2.9-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhonePlus-2.2.9-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-2.3.1-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhonePlus-2.3.1-universal-mac.zip` | ZIP 压缩包 |
 
 当前安装包同时支持 Intel 和 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 
