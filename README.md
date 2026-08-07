@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.3.1-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.3.3-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 2.3.1 / 版本 2.3.1
+## ✨ Version 2.3.3 / 版本 2.3.3
+
+Keeps the display awake during calls and voice recording, limits voice messages to two minutes, and reliably releases recording resources when leaving a chat.
+
+在通话和语音录制期间保持屏幕唤醒，将语音消息时长限制为两分钟，并在离开聊天时可靠释放录音资源。
+
+## Version 2.3.1 / 版本 2.3.1
 
 Adds durable refresh-token sessions, automatic access-token renewal, stronger WebSocket heartbeat and reconnection recovery, missed-message synchronization, and a persistent outbound queue with delivery acknowledgements.
 

@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.3.1-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.3.3-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,12 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 ## ✨ Features
 
-### 🆕 What's New in 2.3.1
+### 🆕 What's New in 2.3.3
+- Keeps the display awake during direct calls, group calls, and voice recording
+- Limits voice-message recording and processing to two minutes and displays the recording limit
+- Stops recording, releases media tracks, and clears related timers when leaving a chat
+
+### What's New in 2.3.1
 - Added persistent refresh-token sessions and automatic access-token renewal to reduce unnecessary sign-ins when short-lived tokens expire
 - Strengthened WebSocket authentication, heartbeat monitoring, and exponential-backoff reconnection, with active recovery after network and app lifecycle events
 - Added missed-message synchronization after reconnect, including server-sequence deduplication and a persistent sync cursor
@@ -97,8 +102,8 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.3.1-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-2.3.1-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-2.3.3-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-2.3.3-universal-mac.zip` | ZIP archive |
 
 The installer supports both Intel and Apple Silicon Macs and is signed with an Apple Developer ID certificate. This build does not yet have an Apple notarization ticket stapled to it. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 

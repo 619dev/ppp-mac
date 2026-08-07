@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.3.1-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.3.3-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,12 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ## ✨ 功能特性
 
-### 🆕 2.3.1 更新
+### 🆕 2.3.3 更新
+- 通话、群组通话及语音录制期间保持屏幕唤醒
+- 将单条语音消息的录制和处理时长限制为 2 分钟，并显示录制上限
+- 离开聊天时自动停止录音、释放媒体轨道并清理相关定时器
+
+### 2.3.1 更新
 - 新增刷新令牌持久化与访问令牌自动续期，减少短期令牌过期导致的重复登录
 - 增强 WebSocket 鉴权、心跳检测与指数退避重连，并在网络恢复、页面唤醒或应用回到前台时主动恢复连接
 - 重连成功后自动同步漏收消息，按服务端序列号去重并更新本地同步游标
@@ -97,8 +102,8 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-2.3.1-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhonePlus-2.3.1-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-2.3.3-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhonePlus-2.3.3-universal-mac.zip` | ZIP 压缩包 |
 
 当前安装包同时支持 Intel 和 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 
