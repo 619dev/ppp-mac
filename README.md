@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.3.3-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.3.5-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,11 +22,11 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 2.3.3 / 版本 2.3.3
+## ✨ Version 2.3.5 / 版本 2.3.5
 
-Keeps the display awake during calls and voice recording, limits voice messages to two minutes, and reliably releases recording resources when leaving a chat.
+Adds OS-protected local keys and authenticated encryption at rest for cached chat history. Legacy plaintext keys, message caches, and media caches are migrated or securely removed.
 
-在通话和语音录制期间保持屏幕唤醒，将语音消息时长限制为两分钟，并在离开聊天时可靠释放录音资源。
+新增由 macOS 系统安全存储保护的本地密钥，以及带完整性校验的聊天记录静态加密；旧版明文密钥、消息缓存和媒体缓存会被迁移或安全清理。
 
 ## Version 2.3.1 / 版本 2.3.1
 
