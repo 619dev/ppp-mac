@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.3.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.3.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 2.3.5 / 版本 2.3.5
+## ✨ Version 2.3.8 / 版本 2.3.8
+
+Fixes fresh-install startup and interrupted secure-storage migration, reliably releases the camera when closing the QR scanner, and prevents duplicate friend requests from search results.
+
+修复首次安装启动及安全存储迁移中断问题；关闭二维码扫描器时会可靠释放摄像头；好友搜索结果会识别已有好友，避免重复发送申请。
+
+## Version 2.3.5 / 版本 2.3.5
 
 Adds OS-protected local keys and authenticated encryption at rest for cached chat history. Legacy plaintext keys, message caches, and media caches are migrated or securely removed.
 

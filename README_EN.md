@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.3.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.3.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,13 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 ## ✨ Features
 
-### 🆕 What's New in 2.3.5
+### 🆕 What's New in 2.3.8
+- Fixed startup when a fresh install or retained session has no local identity keys
+- Recovered safely from invalid secure-storage data left by an interrupted migration
+- Reliably releases the camera when closing the QR scanner and fixes the back button's click layering
+- Identifies existing friends in search results to prevent duplicate friend requests
+
+### What's New in 2.3.5
 - Protects the device key, identity private keys, and group Sender Keys with macOS secure storage
 - Encrypts cached chat history with account- and purpose-bound authenticated envelopes in a dedicated IndexedDB
 - Keeps display plaintext in memory only and strips decrypted fields before persistence
@@ -104,8 +110,8 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.3.5-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-2.3.5-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-2.3.8-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-2.3.8-universal-mac.zip` | ZIP archive |
 
 The installer supports both Intel and Apple Silicon Macs and is signed with an Apple Developer ID certificate. This build does not yet have an Apple notarization ticket stapled to it. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 
