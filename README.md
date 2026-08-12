@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.3.8-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.0-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -21,6 +21,12 @@
 
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
+
+## ✨ Version 2.4.0 / 版本 2.4.0
+
+Repairs legacy one-way friendship records when adding an existing friend and immediately refreshes the contact list.
+
+修复历史单向好友记录导致“已是好友”但联系人不可见的问题；再次添加时会自动刷新联系人列表。
 
 ## ✨ Version 2.3.8 / 版本 2.3.8
 

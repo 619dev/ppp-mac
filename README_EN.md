@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.3.8-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.0-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -21,6 +21,9 @@
 PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://github.com/619dev/Paperphone-plus), built with Electron. It wraps the original React frontend into a native desktop application with full instant messaging capabilities and built-in network proxy support.
 
 ## ✨ Features
+
+### 🆕 What's New in 2.4.0
+- Fixed legacy one-way friendship records causing an “Already friends” message while the contact remained invisible; adding the user again now repairs the relationship and refreshes the contact list immediately
 
 ### 🆕 What's New in 2.3.8
 - Fixed startup when a fresh install or retained session has no local identity keys
@@ -110,8 +113,8 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.3.8-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-2.3.8-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-2.4.0-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-2.4.0-universal-mac.zip` | ZIP archive |
 
 The installer supports both Intel and Apple Silicon Macs and is signed with an Apple Developer ID certificate. This build does not yet have an Apple notarization ticket stapled to it. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 
