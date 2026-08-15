@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.4.2-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.3-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,11 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 2.4.2 / 版本 2.4.2
+## ✨ Version 2.4.3 / 版本 2.4.3
+
+Extra text-appearance encryption now always requires the correct extra password before it can be disabled, even while unlocked.
+
+关闭额外文本外观加密时现在始终要求重新输入正确的额外密码，即使当前已解锁也不能绕过验证。
 
 - 文本外观现已隐藏协议元数据，发送中的本地缓存不再保留消息原文。
 - 额外聊天记录加密已移至个人信息 > 消息隐私，并全局应用于所有聊天。
