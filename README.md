@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.4.3-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.4-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,9 @@
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
 
-## ✨ Version 2.4.3 / 版本 2.4.3
+## ✨ Version 2.4.4 / 版本 2.4.4
+
+- 修复额外加密锁定状态下的解锁密码提示，并同步全部 8 种语言。 / Fixed the locked extra-encryption password prompt across all eight languages.
 
 Extra text-appearance encryption now always requires the correct extra password before it can be disabled, even while unlocked.
 

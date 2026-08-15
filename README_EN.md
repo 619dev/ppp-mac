@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.4.3-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.4-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,9 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 ## ✨ Features
 
-### 🆕 What's New in 2.4.3
+### 🆕 What's New in 2.4.4
+
+- Fixed the locked extra-encryption dialog so it requests the unlock password instead of asking users to set one, across all eight languages.
 
 - Fixed a security issue that allowed extra text-appearance encryption to be disabled without password verification; the correct extra password must now be re-entered even while unlocked.
 - Text appearance now hides protocol metadata and optimistic caches no longer retain original message bodies.
@@ -123,8 +125,8 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.4.3-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-2.4.3-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-2.4.4-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-2.4.4-universal-mac.zip` | ZIP archive |
 
 The installer supports both Intel and Apple Silicon Macs and is signed with an Apple Developer ID certificate. This build does not yet have an Apple notarization ticket stapled to it. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 
