@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.4.4-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.5-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -22,7 +22,12 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ## ✨ 功能特性
 
-### 🆕 2.4.4 更新
+### 🆕 2.4.5 更新
+
+- 修复 macOS 桌面端“个人信息 > 消息隐私”中“开启额外加密”按钮点击无反应的问题
+- 启用、解锁和关闭额外加密现统一使用应用内密码弹窗，不再依赖 Electron 不支持的原生 `prompt()`
+
+### 2.4.4 更新
 
 - 修复额外加密锁定状态下错误显示“设置密码”的问题；现在显示“输入解锁密码”，并同步全部 8 种语言。
 
@@ -125,8 +130,8 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-2.4.4-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhonePlus-2.4.4-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-2.4.5-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhonePlus-2.4.5-universal-mac.zip` | ZIP 压缩包 |
 
 当前安装包同时支持 Intel 和 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 

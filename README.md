@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.4.4-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.5-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -21,6 +21,10 @@
 
 - [中文文档 (Chinese)](README_CN.md)
 - [English Documentation](README_EN.md)
+
+## ✨ Version 2.4.5 / 版本 2.4.5
+
+- Fixed the unresponsive “Enable extra encryption” control in the desktop app by replacing the unsupported native password prompt with an in-app password dialog. / 修复桌面端“开启额外加密”按钮点击无反应的问题，使用应用内密码弹窗替代 Electron 不支持的原生密码提示框。
 
 ## ✨ Version 2.4.4 / 版本 2.4.4
 
