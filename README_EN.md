@@ -22,82 +22,11 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 ## ✨ Features
 
-### 🆕 What's New in 2.4.6
+### Changelog
 
-- Text appearance is now clearly documented as extra insurance above the existing end-to-end encryption: the shared extra password encrypts and renders the body first, followed by private-chat E2EE (X25519 / ML-KEM-768) or group Sender Key encryption.
-- Both private-chat participants, or every group member, must agree on and configure the same extra password; it is never uploaded or synchronized.
-- If passwords differ, E2EE and delivery still work, but recipients see only styled ciphertext and cannot read the original body.
-- This feature never replaces, bypasses, or downgrades the original E2EE; the Profile > Message privacy explanation is updated in all eight UI languages.
+The complete release history has moved to [changelog.md](changelog.md).
 
-### 🆕 What's New in 2.4.5
-
-- Fixed the unresponsive “Enable extra encryption” control under Profile > Message privacy in the macOS desktop app
-- Enabling, unlocking, and disabling extra encryption now use a consistent in-app password dialog instead of Electron's unsupported native `prompt()`
-
-### What's New in 2.4.4
-
-- Fixed the locked extra-encryption dialog so it requests the unlock password instead of asking users to set one, across all eight languages.
-
-- Fixed a security issue that allowed extra text-appearance encryption to be disabled without password verification; the correct extra password must now be re-entered even while unlocked.
-- Text appearance now hides protocol metadata and optimistic caches no longer retain original message bodies.
-- Extra message-history encryption moved to Profile > Message privacy and applies globally to all chats.
-
-- Encrypted sends fail closed instead of falling back to plaintext, with the actual protocol shown per message
-- Adds an extra chat-history password, eight presentation codecs, and 5/15/30/60-minute background auto-lock
-- Locked histories show presentation ciphertext only; private keys and Sender Keys use macOS secure storage, with all eight UI languages synchronized
-
-### 🆕 What's New in 2.4.0
-- Fixed legacy one-way friendship records causing an “Already friends” message while the contact remained invisible; adding the user again now repairs the relationship and refreshes the contact list immediately
-
-### 🆕 What's New in 2.3.8
-- Fixed startup when a fresh install or retained session has no local identity keys
-- Recovered safely from invalid secure-storage data left by an interrupted migration
-- Reliably releases the camera when closing the QR scanner and fixes the back button's click layering
-- Identifies existing friends in search results to prevent duplicate friend requests
-
-### What's New in 2.3.5
-- Protects the device key, identity private keys, and group Sender Keys with macOS secure storage
-- Encrypts cached chat history with account- and purpose-bound authenticated envelopes in a dedicated IndexedDB
-- Keeps display plaintext in memory only and strips decrypted fields before persistence
-- Migrates and removes legacy plaintext keys and chat caches from localStorage, sessionStorage, and IndexedDB
-- Removes the former unencrypted media cache and safely discards corrupt or tampered cache data
-
-### What's New in 2.3.1
-- Added persistent refresh-token sessions and automatic access-token renewal to reduce unnecessary sign-ins when short-lived tokens expire
-- Strengthened WebSocket authentication, heartbeat monitoring, and exponential-backoff reconnection, with active recovery after network and app lifecycle events
-- Added missed-message synchronization after reconnect, including server-sequence deduplication and a persistent sync cursor
-- Added a persistent outbound queue, client message IDs, and delivery acknowledgements so offline messages can be retried reliably
-
-### What's New in 2.2.9
-- Added persistent local caching for sticker-pack lists and contents, retaining cached stickers during server failures or offline sessions
-- Added a dedicated media cache that reuses static, animated, and video stickers by stable `file_id`
-- Stickers are cached before sending, with shared cached rendering in messages and the sticker picker
-- Clearing offline data now also removes the sticker media cache
-
-### What's New in 2.2.8
-- Added quoted-message replies in private and group chats
-- Migrated one-on-one voice and video calls to the LiveKit SFU
-- Improved ringing, answering, reconnection, hang-up, and media-track lifecycle handling
-- Added localized quoted-message text and improved push-permission guidance in Profile
-
-### What's New in 1.1.8
-- Improved the chat composer layout with automatic multiline expansion
-- Refined the voice, emoji, attachment, and send-button interactions
-- Fixed missing remote audio in one-on-one voice and video calls
-- Fixed switching between normal, slow, and fast voice effects during a call
-- Made contact information less intrusive over remote video
-
-### What's New in 1.1.7
-- Fixed unread counters increasing repeatedly when cached offline messages are replayed after reconnecting
-- Unread counts and notifications now trigger only when a message is actually added to the local cache
-- Fixed unread counters not clearing when opening a chat directly from a notification or deep link
-
-### What's New in 1.1.6
-- Fixed local and remote video attachment in one-on-one calls
-- Fixed username searches while composing Chinese text with an IME
-- Improved session handling so temporary network or authorization failures do not incorrectly clear local login state
-- Added offline caching for contacts, groups, messages, Moments, and Timeline
-- Added a cache cleanup option to Settings
+---
 
 ### 💬 Instant Messaging
 - Private & group chat with text, images, videos, files, and voice messages
