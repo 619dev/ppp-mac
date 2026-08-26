@@ -4,6 +4,20 @@ All notable changes and new features are recorded here. Historical entries below
 
 所有重要版本改动和新特性统一记录于此。下方历史条目由仓库原有文档迁移而来。
 
+## 2.4.9
+
+- Introduced the PaperPhone design system with native system typography, clearer message surfaces, refined gold controls, and lower glass blur for improved readability.
+- Added macOS accessibility adaptations for reduced motion, reduced transparency, and increased contrast.
+- Added a post-login password prompt when extra text-appearance encryption is enabled but locked. Correct passwords unlock the protected message appearance; incorrect passwords keep it locked and show localized feedback.
+- Added the startup unlock prompt and error text in all eight supported languages.
+- Updated the application version and the version displayed at the bottom of the profile page to `2.4.9`.
+
+- 引入 PaperPhone 设计系统：使用系统字体，优化消息表面、金色控件与玻璃模糊强度，提高整体可读性。
+- 新增 macOS“减少动态效果”“减少透明度”和“增强对比度”辅助功能适配。
+- 登录并恢复安全状态后，如果额外文本外观加密已启用但仍处于锁定状态，自动弹出密码输入框；正确密码可解锁，错误密码会保持锁定并显示本地化提示。
+- 为启动解锁提示及密码错误提示补充全部八种语言文案。
+- 应用版本及个人信息页面底部显示的版本号更新为 `2.4.9`。
+
 ## 2.4.8
 
 - Fixed incoming private messages failing to decrypt on macOS when the locally protected identity private key no longer matched the public key advertised by the server.

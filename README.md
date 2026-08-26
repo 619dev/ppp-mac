@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-.4.7-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.9-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -25,6 +25,11 @@
 ## 更新日志
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
+
+### 2.4.9
+
+- Introduces the PaperPhone design system with clearer message surfaces, refined controls, native system typography, and macOS accessibility preferences for reduced motion, reduced transparency, and increased contrast.
+- 登录后若额外加密已启用但仍处于锁定状态，应用会主动提示输入额外加密密码；密码错误时保留锁定状态并显示明确提示。
 
 ---
 

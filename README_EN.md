@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-.4.7-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.9-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -25,6 +25,12 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 ### Changelog
 
 The complete release history has moved to [changelog.md](changelog.md).
+
+#### 2.4.9 Release Notes
+
+- Introduces the PaperPhone design system with refined buttons, avatars and message surfaces, native macOS typography, and reduced glass blur for improved readability.
+- Adds support for the reduced-motion, reduced-transparency, and increased-contrast accessibility preferences.
+- After login and secure-state restoration, the app now prompts for the extra-encryption password whenever extra encryption is enabled but locked, including localized validation feedback in all eight languages.
 
 ---
 
@@ -81,8 +87,8 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.4.5-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-2.4.5-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-2.4.9-macOS.dmg` | Recommended Universal DMG installer |
+| `PaperPhonePlus-2.4.9-universal-mac.zip` | ZIP archive |
 
 The installer supports both Intel and Apple Silicon Macs and is signed with an Apple Developer ID certificate. This build does not yet have an Apple notarization ticket stapled to it. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 

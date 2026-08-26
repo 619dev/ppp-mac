@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-.4.7-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.4.9-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -25,6 +25,12 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 ### 更新日志
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
+
+#### 2.4.9 更新说明
+
+- 引入 PaperPhone 设计系统：优化按钮、头像和消息气泡，使用 macOS 系统字体，并降低玻璃模糊强度以提升可读性。
+- 新增“减少动态效果”“减少透明度”和“增强对比度”辅助功能适配。
+- 登录并恢复安全状态后，如果额外加密已启用但仍处于锁定状态，自动弹出额外加密密码输入框；支持错误提示及八种语言。
 
 ---
 
@@ -81,8 +87,8 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-2.4.5-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhonePlus-2.4.5-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-2.4.9-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
+| `PaperPhonePlus-2.4.9-universal-mac.zip` | ZIP 压缩包 |
 
 当前安装包同时支持 Intel 和 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 
