@@ -10,11 +10,13 @@ All notable changes and new features are recorded here. Historical entries below
 - Added legacy object-storage URL migration so existing media continues to load through the authenticated file endpoint.
 - Added batch download for up to 20 image, video, voice, or file messages at a time.
 - Normalized media URLs throughout the macOS desktop UI, including its desktop-only sidebar.
+- Release downloads provide Developer ID-signed Apple Silicon DMG and ZIP packages plus SHA-256 checksums; Apple notarization is still pending.
 
 - 新增临时与永久上传存储分类：头像和群头像永久保存，聊天附件遵循服务器保留策略。
 - 新增旧对象存储 URL 迁移映射，历史媒体可继续通过需要身份验证的文件接口加载。
 - 新增聊天附件批量下载，一次最多选择 20 个图片、视频、语音或文件消息。
 - 在 macOS 桌面界面中统一处理媒体 URL，包括桌面端专属侧边栏。
+- Release 提供经 Developer ID 签名的 Apple Silicon DMG、ZIP 及 SHA-256 校验文件；Apple 公证仍待完成。
 
 ## 2.4.9
 

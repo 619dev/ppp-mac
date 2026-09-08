@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.4.9-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.5.2-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,16 +26,18 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 The complete release history has moved to [changelog.md](changelog.md).
 
-#### 2.4.9 Release Notes
+#### 2.5.2 Release Notes
 
-- Introduces the PaperPhone design system with refined buttons, avatars and message surfaces, native macOS typography, and reduced glass blur for improved readability.
-- Adds support for the reduced-motion, reduced-transparency, and increased-contrast accessibility preferences.
-- After login and secure-state restoration, the app now prompts for the extra-encryption password whenever extra encryption is enabled but locked, including localized validation feedback in all eight languages.
+- Uploads now distinguish temporary and permanent storage: avatars and group images use permanent storage while chat attachments follow server retention policy.
+- The client loads legacy object-storage migration settings and rewrites historical media URLs to the current file endpoint.
+- Chats provide a batch-download mode for selecting up to 20 image, video, voice, or file messages.
+- Avatar and media URLs are normalized across chats, contacts, Moments, calls, and the desktop sidebar, with copy updated in all eight languages.
 
 ---
 
 ### 💬 Instant Messaging
 - Private & group chat with text, images, videos, files, and voice messages
+- Batch download for up to 20 chat attachments at a time
 - One-on-one video and voice calls
 - LiveKit SFU group video meetings for up to 100 participants
 - Video grid, participant panel, active-speaker and media-state indicators
@@ -57,7 +59,7 @@ The complete release history has moved to [changelog.md](changelog.md).
 - Persistent configuration, auto-restored on restart
 
 ### 🖥️ Desktop Features
-- macOS Universal Binary (Intel + Apple Silicon)
+- Current Release assets target Apple Silicon (arm64); Intel and Universal builds remain available from source
 - Telegram-style desktop layout (left sidebar + right main panel)
 - Draggable sidebar width (280px–480px)
 - Window position & size persistence
@@ -87,10 +89,13 @@ Go to the [Releases](../../releases) page and download the installer:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.4.9-macOS.dmg` | Recommended Universal DMG installer |
-| `PaperPhonePlus-2.4.9-universal-mac.zip` | ZIP archive |
+| `PaperPhonePlus-2.5.2-arm64.dmg` | Recommended Apple Silicon DMG installer |
+| `PaperPhonePlus-2.5.2-arm64.zip` | Apple Silicon ZIP archive |
+| `SHA256SUMS.txt` | SHA-256 checksums for the downloads |
 
-The installer supports both Intel and Apple Silicon Macs and is signed with an Apple Developer ID certificate. This build does not yet have an Apple notarization ticket stapled to it. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
+The current installer supports Apple Silicon Macs and is signed with an Apple Developer ID certificate. It does not yet have an Apple notarization ticket stapled to it. Intel Mac users should build from source. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
+
+To batch-download attachments, open a chat, select the download button in its header, choose up to 20 downloadable messages, and confirm. Requests include the current authentication token; duplicate filenames receive a numeric suffix, and partial failures report the number of files that could not be downloaded.
 
 ## 🎥 Video Meetings
 

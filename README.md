@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.4.9-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.5.2-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,10 +26,14 @@
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
 
-### 2.4.9
+### 2.5.2
 
-- Introduces the PaperPhone design system with clearer message surfaces, refined controls, native system typography, and macOS accessibility preferences for reduced motion, reduced transparency, and increased contrast.
-- 登录后若额外加密已启用但仍处于锁定状态，应用会主动提示输入额外加密密码；密码错误时保留锁定状态并显示明确提示。
+- Adds temporary/permanent upload storage classes, authenticated migration of legacy media URLs, and batch download for up to 20 chat attachments.
+- 新增临时／永久文件存储分类、历史媒体 URL 迁移，以及一次最多 20 个聊天附件的批量下载。
+
+Current Release assets target Apple Silicon (`arm64`), are signed with Apple Developer ID, and are not yet notarized. See the [Chinese](README_CN.md#从-release-下载) or [English](README_EN.md#download-from-releases) installation guide.
+
+当前 Release 产物面向 Apple Silicon（`arm64`），已使用 Apple Developer ID 签名，但尚未完成 Apple 公证。安装方法请参阅[中文文档](README_CN.md#从-release-下载)或[英文文档](README_EN.md#download-from-releases)。
 
 ---
 

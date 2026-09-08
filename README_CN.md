@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.4.9-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.5.2-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,16 +26,18 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
 
-#### 2.4.9 更新说明
+#### 2.5.2 更新说明
 
-- 引入 PaperPhone 设计系统：优化按钮、头像和消息气泡，使用 macOS 系统字体，并降低玻璃模糊强度以提升可读性。
-- 新增“减少动态效果”“减少透明度”和“增强对比度”辅助功能适配。
-- 登录并恢复安全状态后，如果额外加密已启用但仍处于锁定状态，自动弹出额外加密密码输入框；支持错误提示及八种语言。
+- 文件上传区分临时与永久存储：头像及群头像使用永久存储，聊天附件遵循服务端保留策略。
+- 启动时获取旧对象存储迁移配置，将历史媒体 URL 统一转换到新的文件接口。
+- 聊天中可进入批量下载模式，一次选择并下载最多 20 个图片、视频、语音或文件消息。
+- 头像与媒体 URL 在聊天、联系人、朋友圈、通话界面及桌面侧边栏中统一处理，并补齐八种语言文案。
 
 ---
 
 ### 💬 即时通讯
 - 私聊 & 群聊，支持文字、图片、视频、文件、语音消息
+- 支持一次选择并批量下载最多 20 个聊天附件
 - 一对一视频/语音通话
 - 基于 LiveKit SFU 的群组视频会议，支持最高 100 人
 - 视频网格、参会者列表、发言状态及摄像头/静音状态显示
@@ -57,7 +59,7 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 - 配置持久化，重启自动恢复
 
 ### 🖥️ 桌面特性
-- macOS Universal Binary（同时支持 Intel 和 Apple Silicon）
+- 当前 Release 提供 Apple Silicon（arm64）安装包；源码仍可构建 Intel 与 Universal 版本
 - Telegram 风格桌面横屏布局（左侧边栏 + 右侧主面板）
 - 侧边栏宽度可拖拽调整（280px–480px）
 - 窗口位置 & 大小记忆
@@ -87,10 +89,13 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-2.4.9-macOS.dmg` | 推荐：DMG 安装镜像（Universal） |
-| `PaperPhonePlus-2.4.9-universal-mac.zip` | ZIP 压缩包 |
+| `PaperPhonePlus-2.5.2-arm64.dmg` | 推荐：Apple Silicon DMG 安装镜像 |
+| `PaperPhonePlus-2.5.2-arm64.zip` | Apple Silicon ZIP 压缩包 |
+| `SHA256SUMS.txt` | 下载文件的 SHA-256 校验值 |
 
-当前安装包同时支持 Intel 和 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
+当前安装包适用于 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。Intel Mac 用户需从源码构建。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
+
+批量下载：进入聊天后点击标题栏中的下载按钮，选择最多 20 个可下载消息，再点击下载确认。下载请求会携带当前登录凭据；同名文件会自动添加序号，下载失败时会显示失败数量。
 
 ## 🎥 视频会议
 
