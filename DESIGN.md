@@ -1,5 +1,13 @@
 # PaperPhonePlus Design System
 
+Version: **2.6.0**. The profile footer displays `PaperPhonePlus v2.6.0`.
+
+Identity badges use the success color only after mutual password verification.
+Refreshing, unverified, changed-key and failed states need localized text and a
+clear verification or retry action. Group message signature badges indicate
+successful message verification; they are distinct from contact identity badges.
+Keep these actions in the existing desktop panel navigation.
+
 ## 1. Product character
 
 PaperPhonePlus is a private, end-to-end encrypted messenger. This repository

@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.5.2-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.0-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,12 +26,11 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
 
-#### 2.5.2 更新说明
+#### 2.6.0 更新说明
 
-- 文件上传区分临时与永久存储：头像及群头像使用永久存储，聊天附件遵循服务端保留策略。
-- 启动时获取旧对象存储迁移配置，将历史媒体 URL 统一转换到新的文件接口。
-- 聊天中可进入批量下载模式，一次选择并下载最多 20 个图片、视频、语音或文件消息。
-- 头像与媒体 URL 在聊天、联系人、朋友圈、通话界面及桌面侧边栏中统一处理，并补齐八种语言文案。
+- 同步 iOS 2.6.0：消息签名、双向身份验证、密钥变更提示、群密钥轮换与历史恢复。信任记录使用 Mac 安全存储，保留桌面导航、代理、通知及文件下载。
+- 需配套 2.6.0 服务端及兼容客户端；详情与验证命令见 [tests/README.md](tests/README.md)。
+
 
 ---
 
@@ -47,8 +46,8 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ### 🔐 端对端加密
 - **E2EE（端对端加密）**：所有消息在发送前加密，服务器无法读取
-- **前向保密（Forward Secrecy）**：基于 Double Ratchet 算法，每条消息使用不同密钥
-- **抗量子加密**：集成 CRYSTALS-Kyber 后量子密钥封装，抵御量子计算攻击
+- **消息认证**：Ed25519 签名绑定发送者身份及消息上下文，群聊按 epoch 轮换发送密钥
+- **协议范围**：签名消息使用 X25519，尚未实现真实 ML-KEM 密钥注册
 - **加密库**：libsodium (X25519, XSalsa20-Poly1305, Ed25519)
 
 ### 🌐 网络代理
@@ -59,7 +58,7 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 - 配置持久化，重启自动恢复
 
 ### 🖥️ 桌面特性
-- 当前 Release 提供 Apple Silicon（arm64）安装包；源码仍可构建 Intel 与 Universal 版本
+- 默认打包仅生成 Apple Silicon（arm64）安装包
 - Telegram 风格桌面横屏布局（左侧边栏 + 右侧主面板）
 - 侧边栏宽度可拖拽调整（280px–480px）
 - 窗口位置 & 大小记忆
@@ -68,7 +67,7 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ## 🔐 额外加密文本外观：工作原理与安全边界
 
-这项功能是**建立在原有端到端加密（E2EE）之上的额外保险**，不是用文本外观代替 E2EE，也不会绕过或降低原有加密。私聊仍由 X25519 / ML-KEM-768 密钥协商及原有消息加密链路保护；群聊仍使用 Sender Key 协议。身份私钥和群聊 Sender Key 继续由 macOS 系统安全存储保护。
+这项功能是**建立在原有端到端加密（E2EE）之上的额外保险**，不是用文本外观代替 E2EE，也不会绕过或降低原有加密。私聊仍由 X25519 密钥协商及 Ed25519 签名保护的消息加密链路保护；群聊仍使用 Sender Key 协议。身份私钥和群聊 Sender Key 继续由 macOS 系统安全存储保护。
 
 启用后，每条消息按以下顺序处理：
 
@@ -81,19 +80,25 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 应用不会持久保存额外密码：解锁后密码只保留在当前运行内存中，本地仅保存随机盐和用于验证密码是否正确的 AES-GCM 验证数据。用户可以立即锁定，也可在应用离开前台 5、15、30 或 60 分钟后自动锁定。此额外层用于在原有 E2EE 之外增加一个独立的共享秘密；它不能替代强密码、设备锁、系统安全存储，也不能在设备已被完全控制且密码仍驻留内存时提供绝对保护。
 
+## 2.6.0 身份验证与兼容性
+
+私聊双方升级后，在个人资料页使用约定的额外密码完成双向身份验证；绿色身份标记表示双方挑战及回执已验证。身份密钥改变会撤销信任，需要重新核验。群成员身份未验证时发送会被阻止，成员变更后群密钥按 epoch 轮换，离线客户端恢复时读取历史密钥分发。签名验证结果不作为可信缓存保存。
+
+请配套使用 2.6.0 服务端及兼容客户端。旧客户端无法解析新签名消息；联系人固定身份后，旧未签名私聊历史也会被拒绝。消息签名不等于附件字节端到端加密，升级无法恢复此前已丢失的群密钥。
+
 ## 📦 安装
 
 ### 从 Release 下载
 
-前往 [Releases](../../releases) 页面下载安装包：
+当前源码版本为 **2.6.0**，本轮已清理缓存并生成 arm64 DMG 和 ZIP，使用 Developer ID 签名，未完成 Apple 公证。前往 [Releases](../../releases) 下载已发布版本；2.6.0 文件如下：
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-2.5.2-arm64.dmg` | 推荐：Apple Silicon DMG 安装镜像 |
-| `PaperPhonePlus-2.5.2-arm64.zip` | Apple Silicon ZIP 压缩包 |
+| `PaperPhonePlus-2.6.0-arm64.dmg` | 推荐：Apple Silicon DMG 安装镜像 |
+| `PaperPhonePlus-2.6.0-arm64-mac.zip` | Apple Silicon ZIP 压缩包 |
 | `SHA256SUMS.txt` | 下载文件的 SHA-256 校验值 |
 
-当前安装包适用于 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。Intel Mac 用户需从源码构建。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
+当前安装包适用于 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。默认配置不生成 Intel 或 Universal 安装包。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
 
 批量下载：进入聊天后点击标题栏中的下载按钮，选择最多 20 个可下载消息，再点击下载确认。下载请求会携带当前登录凭据；同名文件会自动添加序号，下载失败时会显示失败数量。
 
@@ -138,9 +143,18 @@ npm run dev:electron
 # 构建生产版本
 npm run build
 
+# 类型检查与回归测试
+npx tsc --noEmit
+npm run test:security
+npm run test:attachments
+npm run test:i18n
+
 # 打包 macOS 安装包
 npm run build:mac
 ```
+
+打包需要可用的 Developer ID 签名身份；默认配置启用公证，需提供对应 Apple 凭据。`npm run build:mac` 默认要求公证通过。本次环境缺少公证凭据，打包完成后公证校验失败；随后通过 `node scripts/verify-mac-build.cjs --allow-unnotarized` 显式验证 arm64 架构和 Developer ID 签名，并单独检查 DMG/ZIP 完整性。测试覆盖及手工验收边界见 [tests/README.md](tests/README.md)。
+
 
 ## 🔧 代理配置
 
@@ -170,8 +184,8 @@ npm run build:mac
 │  │Login │ │ Chats │ │Calls │ │Moments│ │
 │  └──────┘ └───────┘ └──────┘ └──────┘ │
 │  ┌─────────────────────────────────┐   │
-│  │  Crypto (libsodium + Kyber)     │   │
-│  │  Double Ratchet + E2EE          │   │
+│  │  Crypto (libsodium)             │   │
+│  │  Signed messages + E2EE          │   │
 │  └─────────────────────────────────┘   │
 └─────────────────────────────────────────┘
 ```

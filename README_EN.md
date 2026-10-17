@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.5.2-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.0-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,12 +26,11 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 The complete release history has moved to [changelog.md](changelog.md).
 
-#### 2.5.2 Release Notes
+#### 2.6.0 Release Notes
 
-- Uploads now distinguish temporary and permanent storage: avatars and group images use permanent storage while chat attachments follow server retention policy.
-- The client loads legacy object-storage migration settings and rewrites historical media URLs to the current file endpoint.
-- Chats provide a batch-download mode for selecting up to 20 image, video, voice, or file messages.
-- Avatar and media URLs are normalized across chats, contacts, Moments, calls, and the desktop sidebar, with copy updated in all eight languages.
+- Adds signed messages, mutual identity verification, key-change warnings, group epoch rotation and history recovery from iOS 2.6.0. Trust uses macOS secure storage while retaining desktop navigation, proxy and notifications.
+- Requires a compatible 2.6.0 server and clients. See [test coverage](tests/README.md).
+
 
 ---
 
@@ -47,8 +46,8 @@ The complete release history has moved to [changelog.md](changelog.md).
 
 ### 🔐 End-to-End Encryption
 - **E2EE**: All messages encrypted before sending; the server cannot read them
-- **Forward Secrecy**: Based on the Double Ratchet algorithm, each message uses a unique key
-- **Post-Quantum Encryption**: Integrated CRYSTALS-Kyber for resistance against quantum computing attacks
+- **Authenticated messages**: Ed25519 signatures bind sender identity and message context; group sender keys rotate by epoch
+- **Protocol scope**: The signed messaging path uses X25519; real ML-KEM key registration is not implemented
 - **Crypto Library**: libsodium (X25519, XSalsa20-Poly1305, Ed25519)
 
 ### 🌐 Network Proxy
@@ -59,7 +58,7 @@ The complete release history has moved to [changelog.md](changelog.md).
 - Persistent configuration, auto-restored on restart
 
 ### 🖥️ Desktop Features
-- Current Release assets target Apple Silicon (arm64); Intel and Universal builds remain available from source
+- Default packaging generates Apple Silicon (arm64) installers only
 - Telegram-style desktop layout (left sidebar + right main panel)
 - Draggable sidebar width (280px–480px)
 - Window position & size persistence
@@ -68,7 +67,7 @@ The complete release history has moved to [changelog.md](changelog.md).
 
 ## 🔐 Extra-encrypted text appearance: design and security boundary
 
-This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the existing X25519 / ML-KEM-768 key agreement and message-encryption path; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
+This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the existing X25519 key agreement with Ed25519 signatures and message-encryption path; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
 
 When enabled, every message is processed in this order:
 
@@ -81,19 +80,25 @@ The extra password is never uploaded, synchronized automatically, or distributed
 
 The app does not persist the extra password. While unlocked it exists only in the current process memory; locally, the app stores only a random salt and AES-GCM verification data used to check whether an entered password is correct. Users can lock immediately or automatically 5, 15, 30, or 60 minutes after the app leaves the foreground. This layer adds an independent shared secret beyond E2EE; it does not replace a strong password, device lock, or system secure storage, and it cannot provide absolute protection on a fully compromised device while the password remains in memory.
 
+## 2.6.0 identity verification and compatibility
+
+After both clients upgrade, use the agreed extra password in the contact profile to complete mutual verification. The green identity badge requires verified challenges and receipts. Changed identity keys revoke trust and require a fresh check. Unverified group identities block sending; membership changes rotate the epoch and offline recovery retrieves historical key distributions. Cached signature results are never trusted.
+
+Use a 2.6.0 server and compatible clients. Older clients cannot parse signed envelopes; unsigned private history is also refused after pinning. Message signatures do not end-to-end encrypt attachment bytes, and upgrades cannot recover previously lost group keys.
+
 ## 📦 Installation
 
 ### Download from Releases
 
-Go to the [Releases](../../releases) page and download the installer:
+The source version is **2.6.0**. Code checks and the production build passed; arm64 DMG and ZIP installers have been generated with Developer ID signatures and without Apple notarization. Download an available version from [Releases](../../releases); the 2.6.0 filenames are listed below:
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.5.2-arm64.dmg` | Recommended Apple Silicon DMG installer |
-| `PaperPhonePlus-2.5.2-arm64.zip` | Apple Silicon ZIP archive |
+| `PaperPhonePlus-2.6.0-arm64.dmg` | Recommended Apple Silicon DMG installer |
+| `PaperPhonePlus-2.6.0-arm64-mac.zip` | Apple Silicon ZIP archive |
 | `SHA256SUMS.txt` | SHA-256 checksums for the downloads |
 
-The current installer supports Apple Silicon Macs and is signed with an Apple Developer ID certificate. It does not yet have an Apple notarization ticket stapled to it. Intel Mac users should build from source. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
+The current installer supports Apple Silicon Macs and is signed with an Apple Developer ID certificate. It does not yet have an Apple notarization ticket stapled to it. The default configuration does not generate Intel or Universal installers. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
 
 To batch-download attachments, open a chat, select the download button in its header, choose up to 20 downloadable messages, and confirm. Requests include the current authentication token; duplicate filenames receive a numeric suffix, and partial failures report the number of files that could not be downloaded.
 
@@ -138,9 +143,18 @@ npm run dev:electron
 # Production build
 npm run build
 
+# Type checking and regression suites
+npx tsc --noEmit
+npm run test:security
+npm run test:attachments
+npm run test:i18n
+
 # Package for macOS
 npm run build:mac
 ```
+
+Packaging requires an available Developer ID identity. Notarization is enabled by default and requires Apple credentials. `npm run build:mac` requires notarization by default. This environment lacks notarization credentials, so packaging completed but the notarization check failed. The explicit `node scripts/verify-mac-build.cjs --allow-unnotarized` check then verified arm64 and Developer ID signing; DMG/ZIP integrity was checked separately. See [tests/README.md](tests/README.md) for coverage and manual acceptance boundaries.
+
 
 ## 🔧 Proxy Configuration
 
@@ -170,8 +184,8 @@ The proxy is implemented via Electron's `session.setProxy()` API, transparently 
 │  │Login │ │ Chats │ │Calls │ │Moments│ │
 │  └──────┘ └───────┘ └──────┘ └──────┘ │
 │  ┌─────────────────────────────────┐   │
-│  │  Crypto (libsodium + Kyber)     │   │
-│  │  Double Ratchet + E2EE          │   │
+│  │  Crypto (libsodium)             │   │
+│  │  Signed messages + E2EE          │   │
 │  └─────────────────────────────────┘   │
 └─────────────────────────────────────────┘
 ```

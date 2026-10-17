@@ -5,8 +5,8 @@ const path = require('node:path')
 const projectDir = path.resolve(__dirname, '..')
 const { version } = require(path.join(projectDir, 'package.json'))
 const releaseDir = path.join(projectDir, 'release', version)
-const appPath = path.join(releaseDir, 'mac-universal', 'PaperPhonePlus.app')
-const dmgPath = path.join(releaseDir, `PaperPhonePlus-${version}-macOS.dmg`)
+const appPath = path.join(releaseDir, 'mac-arm64', 'PaperPhonePlus.app')
+const dmgPath = path.join(releaseDir, `PaperPhonePlus-${version}-arm64.dmg`)
 
 function run(command, args) {
   console.log(`> ${command} ${args.join(' ')}`)
@@ -37,6 +37,10 @@ if (!fs.existsSync(dmgPath)) {
   fail(`DMG not found: ${dmgPath}`)
 }
 
+if (run('lipo', ['-archs', path.join(appPath, 'Contents/MacOS/PaperPhonePlus')]).trim() !== 'arm64') {
+  fail('the app must contain only arm64')
+}
+
 try {
   run('codesign', ['--verify', '--deep', '--strict', '--verbose=4', appPath])
 } catch (error) {
@@ -57,25 +61,29 @@ if (!/Authority=Developer ID Application:/.test(signatureDetails)) {
   fail('the app is not signed with a Developer ID Application certificate')
 }
 
-try {
-  run('xcrun', ['stapler', 'validate', appPath])
-} catch (error) {
-  fail('the notarization ticket is missing or invalid', error)
+if (process.argv.includes('--allow-unnotarized')) {
+  console.warn('Developer ID signature verified. Apple notarization and Gatekeeper acceptance are not verified.');
+} else {
+  try {
+    run('xcrun', ['stapler', 'validate', appPath])
+  } catch (error) {
+    fail('the notarization ticket is missing or invalid', error)
+  }
+
+  try {
+    run('spctl', ['--assess', '--type', 'execute', '--verbose=4', appPath])
+    run('spctl', [
+      '--assess',
+      '--type',
+      'open',
+      '--context',
+      'context:primary-signature',
+      '--verbose=4',
+      dmgPath,
+    ])
+  } catch (error) {
+    fail('Gatekeeper rejected the app or DMG', error)
+  }
 }
 
-try {
-  run('spctl', ['--assess', '--type', 'execute', '--verbose=4', appPath])
-  run('spctl', [
-    '--assess',
-    '--type',
-    'open',
-    '--context',
-    'context:primary-signature',
-    '--verbose=4',
-    dmgPath,
-  ])
-} catch (error) {
-  fail('Gatekeeper rejected the app or DMG', error)
-}
-
-console.log(`\nVerified signed and notarized macOS ${version} release.`)
+console.log(`\nVerified signed arm64 macOS ${version} release${process.argv.includes('--allow-unnotarized') ? ' (not notarized)' : ' and notarization'}.`)

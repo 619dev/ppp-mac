@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.5.2-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.0-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,20 +26,21 @@
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
 
-### 2.5.2
+### 2.6.0
 
-- Adds temporary/permanent upload storage classes, authenticated migration of legacy media URLs, and batch download for up to 20 chat attachments.
-- 新增临时／永久文件存储分类、历史媒体 URL 迁移，以及一次最多 20 个聊天附件的批量下载。
+- 同步 iOS 2.6.0：消息签名、双向身份验证、密钥变更提示、群密钥轮换与历史恢复。信任记录使用 Mac 安全存储，保留桌面导航、代理、通知及文件下载。
+- 需配套 2.6.0 服务端及兼容客户端；详情与验证命令见 [tests/README.md](tests/README.md)。
 
-Current Release assets target Apple Silicon (`arm64`), are signed with Apple Developer ID, and are not yet notarized. See the [Chinese](README_CN.md#从-release-下载) or [English](README_EN.md#download-from-releases) installation guide.
 
-当前 Release 产物面向 Apple Silicon（`arm64`），已使用 Apple Developer ID 签名，但尚未完成 Apple 公证。安装方法请参阅[中文文档](README_CN.md#从-release-下载)或[英文文档](README_EN.md#download-from-releases)。
+Source version **2.6.0** has passed type checking and the production build; arm64 DMG and ZIP installers have been built with Developer ID signatures and without Apple notarization. Existing Release assets target Apple Silicon (`arm64`), are signed with Apple Developer ID, and are not yet notarized. See the [Chinese](README_CN.md#从-release-下载) or [English](README_EN.md#download-from-releases) installation guide.
+
+当前源码版本为 **2.6.0**，已通过类型检查和生产构建，已生成仅含 arm64 的 DMG 和 ZIP，使用 Developer ID 签名，未完成 Apple 公证。已有 Release 产物面向 Apple Silicon（`arm64`），已使用 Apple Developer ID 签名，但尚未完成 Apple 公证。安装方法请参阅[中文文档](README_CN.md#从-release-下载)或[英文文档](README_EN.md#download-from-releases)。
 
 ---
 
 ## 🔐 Extra-encrypted text appearance: design and security boundary
 
-This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the existing X25519 / ML-KEM-768 key agreement and message-encryption path; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
+This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the existing X25519 key agreement with Ed25519 signatures and message-encryption path; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
 
 When enabled, every message is processed in this order:
 
@@ -54,7 +55,7 @@ The app does not persist the extra password. While unlocked it exists only in th
 
 ## 🔐 额外加密文本外观：工作原理与安全边界
 
-这项功能是**建立在原有端到端加密（E2EE）之上的额外保险**，不是用文本外观代替 E2EE，也不会绕过或降低原有加密。私聊仍由 X25519 / ML-KEM-768 密钥协商及原有消息加密链路保护；群聊仍使用 Sender Key 协议。身份私钥和群聊 Sender Key 继续由 macOS 系统安全存储保护。
+这项功能是**建立在原有端到端加密（E2EE）之上的额外保险**，不是用文本外观代替 E2EE，也不会绕过或降低原有加密。私聊仍由 X25519 密钥协商及 Ed25519 签名保护的消息加密链路保护；群聊仍使用 Sender Key 协议。身份私钥和群聊 Sender Key 继续由 macOS 系统安全存储保护。
 
 启用后，每条消息按以下顺序处理：
 

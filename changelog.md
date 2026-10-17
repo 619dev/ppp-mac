@@ -4,6 +4,18 @@ All notable changes and new features are recorded here. Historical entries below
 
 所有重要版本改动和新特性统一记录于此。下方历史条目由仓库原有文档迁移而来。
 
+## 2.6.0
+
+- 应用包、锁文件、个人信息页底部及当前说明统一为 2.6.0；整理中英文文档、构建测试命令与发布状态，检查并确认无失效 Zeabur 入口残留。历史版本号保留于本日志。
+- TypeScript, production build and security/group/sync/attachment/eight-language suites passed. A clean arm64-only DMG/ZIP build is Developer ID signed, without Apple notarization. Native two-client acceptance remains pending.
+
+- 吸收 iOS `11bca60`：私聊/群聊签名、双向身份验证、密钥变更提示、群密钥分发验证、epoch 轮换及离线历史恢复。
+- 身份信任记录接入 macOS 安全存储，保留 Electron 导航、代理、通知及下载。
+- 加密缓存串行持久化后推进同步游标；缓存剔除正文与签名验证标记。
+- 同步八语言安全提示、附件鉴权刷新及头像规范化。需兼容 2.6.0 服务端与客户端。
+- Added security, group, sync, attachment and localization regression suites.
+
+
 ## 2.5.2
 
 - Added temporary and permanent upload storage classes so avatars and group images remain durable while chat attachments follow server retention policy.

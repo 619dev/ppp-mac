@@ -22,10 +22,10 @@ mac:
   target:
     - target: dmg
       arch:
-        - universal
+        - arm64
     - target: zip
       arch:
-        - universal
+        - arm64
   darkModeSupport: true
   hardenedRuntime: true
   gatekeeperAssess: false
@@ -37,7 +37,7 @@ mac:
     NSMicrophoneUsageDescription: PaperPhonePlus 需要访问麦克风以进行语音和视频会议。
 
 dmg:
-  artifactName: ${productName}-${version}-macOS.${ext}
+  artifactName: ${productName}-${version}-${arch}.${ext}
   contents:
     - x: 130
       y: 220
