@@ -1,6 +1,8 @@
 # PaperPhonePlus Design System
 
-Version: **2.6.0**. The profile footer displays `PaperPhonePlus v2.6.0`.
+Version: **2.6.5**. The profile footer displays `PaperPhonePlus v2.6.5`.
+
+Contact profiles expose add/remove actions. Group member lists show membership and roles. Mutual password verification belongs to the private contact profile.
 
 Identity badges use the success color only after mutual password verification.
 Refreshing, unverified, changed-key and failed states need localized text and a

@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.6.0-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.5-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,10 +26,10 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 The complete release history has moved to [changelog.md](changelog.md).
 
-#### 2.6.0 Release Notes
+#### 2.6.5 Release Notes
 
-- Adds signed messages, mutual identity verification, key-change warnings, group epoch rotation and history recovery from iOS 2.6.0. Trust uses macOS secure storage while retaining desktop navigation, proxy and notifications.
-- Requires a compatible 2.6.0 server and clients. See [test coverage](tests/README.md).
+- Syncs upstream friendship fixes. Add or remove friends from their profiles, and refresh contacts on relationship changes and reconnect. Group chat verifies signatures against server-published member keys and encrypts with Sender Keys, which rotate on membership changes. Extra text encryption applies to private chats.
+- Friendship repair requires a server with the upstream friendship fixes. Group participants need clients compatible with the updated group mode. See [test coverage](tests/README.md).
 
 
 ---
@@ -67,35 +67,34 @@ The complete release history has moved to [changelog.md](changelog.md).
 
 ## 🔐 Extra-encrypted text appearance: design and security boundary
 
-This feature is **extra insurance on top of the existing end-to-end encryption (E2EE)**. It does not replace E2EE with a visual encoding, and it never bypasses or weakens the original encryption. Private chats remain protected by the existing X25519 key agreement with Ed25519 signatures and message-encryption path; group chats continue to use the Sender Key protocol. Identity private keys and group Sender Keys remain protected by macOS secure storage.
+Extra text encryption adds a layer of protection to private chats, which use X25519 key agreement and Ed25519 signatures. Group chat uses Sender Keys and server-published member keys. macOS secure storage protects identity private keys and group Sender Keys.
 
-When enabled, every message is processed in this order:
+When enabled, each private message is processed in this order:
 
-1. The sender first protects the message body with the extra password shared by both participants or by all group members. PBKDF2-SHA-256 (210,000 iterations and a random salt) derives an AES-256-GCM key; every message has an independent random IV and an authentication tag for integrity.
+1. The sender first protects the message body with the extra password shared by both participants. PBKDF2-SHA-256 (210,000 iterations and a random salt) derives an AES-256-GCM key; every message has an independent random IV and an authentication tag for integrity.
 2. The complete extra-encryption frame (version, salt, IV, and ciphertext) is then encoded with one of eight selectable text appearances. This is not merely decorative character substitution: the visible characters carry the extra encrypted ciphertext.
-3. That appearance ciphertext then enters the project's original encryption path: private-chat E2EE or group Sender Key encryption. The server still receives the original E2EE/Sender-Key ciphertext plus metadata required for delivery.
-4. The recipient reverses the order: first decrypt the original E2EE/Sender-Key layer, then decode the text-appearance frame and decrypt the body with the extra password.
+3. That appearance ciphertext then enters the project's original encryption path: private-chat E2EE. The server still receives the original E2EE ciphertext plus metadata required for delivery.
+4. The recipient reverses the order: first decrypt the original E2EE layer, then decode the text-appearance frame and decrypt the body with the extra password.
 
-The extra password is never uploaded, synchronized automatically, or distributed by the server. Both people in a private chat must set the same password; every group member who needs to read the plaintext must also set that same password. Text appearances do not need to match: every message carries its own appearance identifier, so the recipient automatically detects and decodes the sender's choice. For example, one person may send Buddhist text while another sends Hangul; if the extra password matches, both decrypt normally. A user's appearance setting controls only the ciphertext appearance of messages they send. If the password is missing, locked, or different, messages are still sent and received normally and the original E2EE layer still decrypts successfully, but the app can display only the appearance ciphertext—not the original text.
+The extra password is never uploaded, synchronized automatically, or distributed by the server. Both people in a private chat must set the same password. Text appearances do not need to match: every message carries its own appearance identifier, so the recipient automatically detects and decodes the sender's choice. For example, one person may send Buddhist text while another sends Hangul; if the extra password matches, both decrypt normally. A user's appearance setting controls only the ciphertext appearance of messages they send. If the password is missing, locked, or different, messages are still sent and received normally and the original E2EE layer still decrypts successfully, but the app can display only the appearance ciphertext—not the original text.
 
 The app does not persist the extra password. While unlocked it exists only in the current process memory; locally, the app stores only a random salt and AES-GCM verification data used to check whether an entered password is correct. Users can lock immediately or automatically 5, 15, 30, or 60 minutes after the app leaves the foreground. This layer adds an independent shared secret beyond E2EE; it does not replace a strong password, device lock, or system secure storage, and it cannot provide absolute protection on a fully compromised device while the password remains in memory.
 
-## 2.6.0 identity verification and compatibility
+## 2.6.5 identity verification and compatibility
 
-After both clients upgrade, use the agreed extra password in the contact profile to complete mutual verification. The green identity badge requires verified challenges and receipts. Changed identity keys revoke trust and require a fresh check. Unverified group identities block sending; membership changes rotate the epoch and offline recovery retrieves historical key distributions. Cached signature results are never trusted.
+After both clients upgrade, use the agreed extra password in the contact profile to complete mutual verification. The green identity badge requires verified challenges and receipts. Changed identity keys revoke trust and require a fresh check. Group chat uses server-published member keys without requiring private verification for each member. Group membership changes rotate the epoch and offline recovery retrieves historical key distributions. Cached signature results are never trusted.
 
-Use a 2.6.0 server and compatible clients. Older clients cannot parse signed envelopes; unsigned private history is also refused after pinning. Message signatures do not end-to-end encrypt attachment bytes, and upgrades cannot recover previously lost group keys.
+Use a server with the upstream friendship fixes and compatible clients. Older clients cannot parse signed envelopes; unsigned private history is also refused after pinning. Message signatures do not end-to-end encrypt attachment bytes, and upgrades cannot recover previously lost group keys.
 
 ## 📦 Installation
 
 ### Download from Releases
 
-The source version is **2.6.0**. Code checks and the production build passed; arm64 DMG and ZIP installers have been generated with Developer ID signatures and without Apple notarization. Download an available version from [Releases](../../releases); the 2.6.0 filenames are listed below:
+Download the 2.6.5 Apple Silicon DMG from [Releases](../../releases).
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.6.0-arm64.dmg` | Recommended Apple Silicon DMG installer |
-| `PaperPhonePlus-2.6.0-arm64-mac.zip` | Apple Silicon ZIP archive |
+| `PaperPhonePlus-2.6.5-arm64.dmg` | Recommended Apple Silicon DMG installer |
 | `SHA256SUMS.txt` | SHA-256 checksums for the downloads |
 
 The current installer supports Apple Silicon Macs and is signed with an Apple Developer ID certificate. It does not yet have an Apple notarization ticket stapled to it. The default configuration does not generate Intel or Universal installers. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
@@ -153,7 +152,7 @@ npm run test:i18n
 npm run build:mac
 ```
 
-Packaging requires an available Developer ID identity. Notarization is enabled by default and requires Apple credentials. `npm run build:mac` requires notarization by default. This environment lacks notarization credentials, so packaging completed but the notarization check failed. The explicit `node scripts/verify-mac-build.cjs --allow-unnotarized` check then verified arm64 and Developer ID signing; DMG/ZIP integrity was checked separately. See [tests/README.md](tests/README.md) for coverage and manual acceptance boundaries.
+Packaging requires a Developer ID identity. Notarization is enabled by default and requires Apple credentials. See [tests/README.md](tests/README.md) for verification and manual acceptance.
 
 
 ## 🔧 Proxy Configuration

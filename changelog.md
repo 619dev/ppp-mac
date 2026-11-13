@@ -4,6 +4,12 @@ All notable changes and new features are recorded here. Historical entries below
 
 所有重要版本改动和新特性统一记录于此。下方历史条目由仓库原有文档迁移而来。
 
+## 2.6.5
+
+- 同步上游好友关系修复。个人资料页支持添加和删除好友，关系变更和重连时会刷新好友列表。群聊使用服务端公布的成员公钥验证签名，以 Sender Key 加密并按成员变更轮换密钥。额外文本加密用于私聊。
+- Syncs upstream friendship fixes. Add or remove friends from their profiles, and refresh contacts on relationship changes and reconnect. Group chat verifies signatures against server-published member keys and encrypts with Sender Keys, which rotate on membership changes. Extra text encryption applies to private chats.
+- macOS 应用、锁文件及个人信息页版本统一为 2.6.5，发布 Apple Silicon（arm64）DMG。
+
 ## 2.6.0
 
 - 应用包、锁文件、个人信息页底部及当前说明统一为 2.6.0；整理中英文文档、构建测试命令与发布状态，检查并确认无失效 Zeabur 入口残留。历史版本号保留于本日志。

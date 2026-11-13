@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.6.0-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.5-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,10 +26,10 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
 
-#### 2.6.0 更新说明
+#### 2.6.5 更新说明
 
-- 同步 iOS 2.6.0：消息签名、双向身份验证、密钥变更提示、群密钥轮换与历史恢复。信任记录使用 Mac 安全存储，保留桌面导航、代理、通知及文件下载。
-- 需配套 2.6.0 服务端及兼容客户端；详情与验证命令见 [tests/README.md](tests/README.md)。
+- 同步上游好友关系修复。个人资料页支持添加和删除好友，关系变更和重连时会刷新好友列表。群聊使用服务端公布的成员公钥验证签名，以 Sender Key 加密并按成员变更轮换密钥。额外文本加密用于私聊。
+- 好友关系修复需配套包含上游好友关系修复的服务端。群聊参与者需使用兼容新版群聊模式的客户端。验证命令见 [tests/README.md](tests/README.md)。
 
 
 ---
@@ -67,35 +67,34 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 ## 🔐 额外加密文本外观：工作原理与安全边界
 
-这项功能是**建立在原有端到端加密（E2EE）之上的额外保险**，不是用文本外观代替 E2EE，也不会绕过或降低原有加密。私聊仍由 X25519 密钥协商及 Ed25519 签名保护的消息加密链路保护；群聊仍使用 Sender Key 协议。身份私钥和群聊 Sender Key 继续由 macOS 系统安全存储保护。
+额外文本加密用于私聊，作为 X25519 密钥协商和 Ed25519 签名消息加密之外的保护层。群聊使用 Sender Key 协议和服务端公布的成员公钥。身份私钥及群聊 Sender Key 由 macOS 系统安全存储保护。
 
-启用后，每条消息按以下顺序处理：
+启用后，每条私聊消息按以下顺序处理：
 
-1. 发送方先用双方或群内全员约定的额外密码处理消息正文。密码通过 PBKDF2-SHA-256（210,000 次迭代及随机盐）派生 AES-256-GCM 密钥；每条消息使用独立随机 IV，并通过认证标签校验完整性。
+1. 发送方先用私聊双方约定的额外密码处理消息正文。密码通过 PBKDF2-SHA-256（210,000 次迭代及随机盐）派生 AES-256-GCM 密钥；每条消息使用独立随机 IV，并通过认证标签校验完整性。
 2. 额外加密后的完整数据帧（版本、盐、IV 和密文）再转换成所选的 8 种文本外观之一。这不是单纯替换字符的装饰效果，外观字符实际承载的是额外加密密文。
-3. 该外观密文随后才进入项目原有加密链路：私聊使用 E2EE，群聊使用 Sender Key；服务器接收到的仍是原有 E2EE／Sender Key 密文及投递所需元数据。
-4. 接收端执行相反流程：先用原有 E2EE／Sender Key 解密消息，再还原文本外观数据，并用额外密码解密出正文。
+3. 该外观密文随后才进入项目原有加密链路：私聊使用 E2EE；服务器接收到的是 E2EE 密文及投递所需元数据。
+4. 接收端执行相反流程：先用原有 E2EE 解密消息，再还原文本外观数据，并用额外密码解密出正文。
 
-额外密码不会上传、自动同步或由服务器分发。私聊双方必须设置相同密码；群聊中希望阅读正文的所有成员也必须设置相同密码。文本外观不需要一致：每条消息都会携带自己的外观类型标记，接收端会自动识别并还原发送方选择的外观。例如一方发送“与佛论禅”、另一方发送“韩文”，只要额外密码相同，双方都能正常解密；每个人的外观设置只决定自己发出的密文样式。密码缺失、仍处于锁定状态或密码不一致时，消息依然能够正常发送、接收并完成原有 E2EE 解密，但应用只能显示文本外观密文，无法显示原文。
+额外密码不会上传、自动同步或由服务器分发。私聊双方必须设置相同密码。文本外观不需要一致：每条消息都会携带自己的外观类型标记，接收端会自动识别并还原发送方选择的外观。例如一方发送“与佛论禅”、另一方发送“韩文”，只要额外密码相同，双方都能正常解密；每个人的外观设置只决定自己发出的密文样式。密码缺失、仍处于锁定状态或密码不一致时，消息依然能够正常发送、接收并完成原有 E2EE 解密，但应用只能显示文本外观密文，无法显示原文。
 
 应用不会持久保存额外密码：解锁后密码只保留在当前运行内存中，本地仅保存随机盐和用于验证密码是否正确的 AES-GCM 验证数据。用户可以立即锁定，也可在应用离开前台 5、15、30 或 60 分钟后自动锁定。此额外层用于在原有 E2EE 之外增加一个独立的共享秘密；它不能替代强密码、设备锁、系统安全存储，也不能在设备已被完全控制且密码仍驻留内存时提供绝对保护。
 
-## 2.6.0 身份验证与兼容性
+## 2.6.5 身份验证与兼容性
 
-私聊双方升级后，在个人资料页使用约定的额外密码完成双向身份验证；绿色身份标记表示双方挑战及回执已验证。身份密钥改变会撤销信任，需要重新核验。群成员身份未验证时发送会被阻止，成员变更后群密钥按 epoch 轮换，离线客户端恢复时读取历史密钥分发。签名验证结果不作为可信缓存保存。
+私聊双方升级后，在个人资料页使用约定的额外密码完成双向身份验证；绿色身份标记表示双方挑战及回执已验证。身份密钥改变会撤销信任，需要重新核验。群聊使用服务端公布的成员公钥，无需逐一完成私聊身份验证。成员变更后群密钥按 epoch 轮换，离线客户端恢复时读取历史密钥分发。签名验证结果不作为可信缓存保存。
 
-请配套使用 2.6.0 服务端及兼容客户端。旧客户端无法解析新签名消息；联系人固定身份后，旧未签名私聊历史也会被拒绝。消息签名不等于附件字节端到端加密，升级无法恢复此前已丢失的群密钥。
+请配套使用包含上游好友关系修复的服务端及兼容客户端。旧客户端无法解析新签名消息；联系人固定身份后，旧未签名私聊历史也会被拒绝。消息签名不等于附件字节端到端加密，升级无法恢复此前已丢失的群密钥。
 
 ## 📦 安装
 
 ### 从 Release 下载
 
-当前源码版本为 **2.6.0**，本轮已清理缓存并生成 arm64 DMG 和 ZIP，使用 Developer ID 签名，未完成 Apple 公证。前往 [Releases](../../releases) 下载已发布版本；2.6.0 文件如下：
+前往 [Releases](../../releases) 下载 Apple Silicon（arm64）DMG。
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-2.6.0-arm64.dmg` | 推荐：Apple Silicon DMG 安装镜像 |
-| `PaperPhonePlus-2.6.0-arm64-mac.zip` | Apple Silicon ZIP 压缩包 |
+| `PaperPhonePlus-2.6.5-arm64.dmg` | 推荐：Apple Silicon DMG 安装镜像 |
 | `SHA256SUMS.txt` | 下载文件的 SHA-256 校验值 |
 
 当前安装包适用于 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。默认配置不生成 Intel 或 Universal 安装包。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
@@ -153,7 +152,7 @@ npm run test:i18n
 npm run build:mac
 ```
 
-打包需要可用的 Developer ID 签名身份；默认配置启用公证，需提供对应 Apple 凭据。`npm run build:mac` 默认要求公证通过。本次环境缺少公证凭据，打包完成后公证校验失败；随后通过 `node scripts/verify-mac-build.cjs --allow-unnotarized` 显式验证 arm64 架构和 Developer ID 签名，并单独检查 DMG/ZIP 完整性。测试覆盖及手工验收边界见 [tests/README.md](tests/README.md)。
+打包需要 Developer ID 签名身份。默认启用公证，需要 Apple 凭据。验证命令和手工验收范围见 [tests/README.md](tests/README.md)。
 
 
 ## 🔧 代理配置
