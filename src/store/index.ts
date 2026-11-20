@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { applyNativeProxy, clearNativeProxy } from '../api/proxy-bridge'
-import { MEDIA_CACHE_NAME, readOfflineData, writeOfflineData } from '../utils/offlineCache'
+import { readOfflineData, writeOfflineData } from '../utils/offlineCache'
 import { hasNativeSecureStorage, openForAccount, sealForAccount } from '../api/secure-storage'
 import { deleteSecureCache, readSecureCache, writeSecureCache } from '../utils/secureCacheDb'
 
@@ -73,7 +73,7 @@ export async function hydrateEncryptedMessageCache(account: string): Promise<voi
     }
     localStorage.removeItem(LEGACY_MSG_CACHE_KEY)
     // Previous versions cached attachment bodies as unencrypted Web Cache data.
-    if ('caches' in window) await caches.delete(MEDIA_CACHE_NAME)
+    if ('caches' in window) await caches.delete('paperphone-media-v2').catch(() => {})
     useStore.setState({ messages: storageSafeMessages(messages) })
   } catch (err) {
     // Corrupt/tampered cache must never fall back to plaintext.

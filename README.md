@@ -6,7 +6,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.6.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.7-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,10 +26,12 @@
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
 
-### 2.6.5
+### 2.6.7
 
-- 同步上游好友关系修复。个人资料页支持添加和删除好友，关系变更和重连时会刷新好友列表。群聊使用服务端公布的成员公钥验证签名，以 Sender Key 加密并按成员变更轮换密钥。额外文本加密用于私聊。
-- 好友关系修复需配套包含上游好友关系修复的服务端。群聊参与者需使用兼容新版群聊模式的客户端。验证命令见 [tests/README.md](tests/README.md)。
+- 本地持久缓存头像、朋友圈、时间线和聊天媒体，按服务器与账号隔离；已缓存媒体可离线查看，也可在个人信息页清理缓存。
+- 时间线上传时显示当前文件名、进度条和百分比；关闭帖子详情后恢复列表滚动位置。
+- 在「个人信息 → 账号删除」设置 3、6、12、24 或 36 个月未登录后的自动删除期限，默认为 12 个月。每次成功登录重新计时，也可用密码确认立即删除。
+- 已启用双重验证的账号可在登录页选择「忘记密码」，用身份验证器的六位验证码设置新密码。账号删除和密码恢复需要 2.6.7 或更新的 Paperphone-plus 服务端。
 
 
 Download the Apple Silicon (arm64) DMG from [Releases](../../releases).

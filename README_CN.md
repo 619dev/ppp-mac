@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.6.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.7-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,10 +26,12 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 完整版本更新记录已迁移至 [changelog.md](changelog.md)。
 
-#### 2.6.5 更新说明
+#### 2.6.7 更新说明
 
-- 同步上游好友关系修复。个人资料页支持添加和删除好友，关系变更和重连时会刷新好友列表。群聊使用服务端公布的成员公钥验证签名，以 Sender Key 加密并按成员变更轮换密钥。额外文本加密用于私聊。
-- 好友关系修复需配套包含上游好友关系修复的服务端。群聊参与者需使用兼容新版群聊模式的客户端。验证命令见 [tests/README.md](tests/README.md)。
+- 本地持久缓存头像、朋友圈、时间线和聊天媒体，按服务器与账号隔离；已缓存媒体可离线查看，也可在个人信息页清理缓存。
+- 时间线上传时显示当前文件名、进度条和百分比；关闭帖子详情后恢复列表滚动位置。
+- 在「个人信息 → 账号删除」设置 3、6、12、24 或 36 个月未登录后的自动删除期限，默认为 12 个月。每次成功登录重新计时，也可用密码确认立即删除。
+- 已启用双重验证的账号可在登录页选择「忘记密码」，用身份验证器的六位验证码设置新密码。账号删除和密码恢复需要 2.6.7 或更新的 Paperphone-plus 服务端。
 
 
 ---
@@ -80,7 +82,7 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 应用不会持久保存额外密码：解锁后密码只保留在当前运行内存中，本地仅保存随机盐和用于验证密码是否正确的 AES-GCM 验证数据。用户可以立即锁定，也可在应用离开前台 5、15、30 或 60 分钟后自动锁定。此额外层用于在原有 E2EE 之外增加一个独立的共享秘密；它不能替代强密码、设备锁、系统安全存储，也不能在设备已被完全控制且密码仍驻留内存时提供绝对保护。
 
-## 2.6.5 身份验证与兼容性
+## 身份验证与兼容性
 
 私聊双方升级后，在个人资料页使用约定的额外密码完成双向身份验证；绿色身份标记表示双方挑战及回执已验证。身份密钥改变会撤销信任，需要重新核验。群聊使用服务端公布的成员公钥，无需逐一完成私聊身份验证。成员变更后群密钥按 epoch 轮换，离线客户端恢复时读取历史密钥分发。签名验证结果不作为可信缓存保存。
 
@@ -94,7 +96,8 @@ PaperPhonePlus Desktop 是 [Paperphone-plus](https://github.com/619dev/Paperphon
 
 | 文件 | 说明 |
 |------|------|
-| `PaperPhonePlus-2.6.5-arm64.dmg` | 推荐：Apple Silicon DMG 安装镜像 |
+| `PaperPhonePlus-2.6.7-arm64.dmg` | 推荐：Apple Silicon DMG 安装镜像 |
+| `PaperPhonePlus-2.6.7-arm64-mac.zip` | Apple Silicon ZIP 压缩包 |
 | `SHA256SUMS.txt` | 下载文件的 SHA-256 校验值 |
 
 当前安装包适用于 Apple Silicon Mac，并已使用 Apple Developer ID 证书签名；当前构建尚未装订 Apple 公证票据。默认配置不生成 Intel 或 Universal 安装包。如果 Gatekeeper 阻止首次启动，请在 Finder 中按住 Control 点击应用，选择“打开”，再确认启动。
@@ -147,6 +150,7 @@ npx tsc --noEmit
 npm run test:security
 npm run test:attachments
 npm run test:i18n
+npm run test:media-cache
 
 # 打包 macOS 安装包
 npm run build:mac

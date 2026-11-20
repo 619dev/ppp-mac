@@ -4,6 +4,19 @@ All notable changes and new features are recorded here. Historical entries below
 
 所有重要版本改动和新特性统一记录于此。下方历史条目由仓库原有文档迁移而来。
 
+## 2.6.7
+
+- 本地持久缓存头像、朋友圈、时间线和聊天媒体，按服务器与账号隔离；已缓存媒体可离线查看，也可在个人信息页清理缓存。
+- 时间线上传时显示当前文件名、进度条和百分比；关闭帖子详情后恢复列表滚动位置。
+- 在「个人信息 → 账号删除」设置 3、6、12、24 或 36 个月未登录后的自动删除期限，默认为 12 个月。每次成功登录重新计时，也可用密码确认立即删除。
+- 已启用双重验证的账号可在登录页选择「忘记密码」，用身份验证器的六位验证码设置新密码。账号删除和密码恢复需要 2.6.7 或更新的 Paperphone-plus 服务端。
+- Mac 应用、个人信息页页脚和安装包版本统一为 2.6.7。提供 Apple Silicon DMG、ZIP 及 SHA-256 校验值。
+
+- Persistently caches avatars, Moments, Timeline media, and chat attachments by server and account. Cached media remains available offline and can be cleared from Profile.
+- Timeline uploads display the current filename, a progress bar, and a percentage. Returning from a post restores the list's scroll position.
+- In Profile → Account deletion, choose a 3, 6, 12, 24, or 36 month inactivity period. The default is 12 months. A successful sign-in restarts the timer. Immediate deletion requires the account password.
+- Accounts with two-factor authentication can choose Forgot password and enter a six-digit authenticator code to set a new password. Account deletion and password recovery require Paperphone-plus server 2.6.7 or later.
+
 ## 2.6.5
 
 - 同步上游好友关系修复。个人资料页支持添加和删除好友，关系变更和重连时会刷新好友列表。群聊使用服务端公布的成员公钥验证签名，以 Sender Key 加密并按成员变更轮换密钥。额外文本加密用于私聊。

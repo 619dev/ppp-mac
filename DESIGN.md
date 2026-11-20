@@ -1,6 +1,6 @@
 # PaperPhonePlus Design System
 
-Version: **2.6.5**. The profile footer displays `PaperPhonePlus v2.6.5`.
+Version: **2.6.7**. The profile footer displays `PaperPhonePlus v2.6.7`.
 
 Contact profiles expose add/remove actions. Group member lists show membership and roles. Mutual password verification belongs to the private contact profile.
 
@@ -9,6 +9,18 @@ Refreshing, unverified, changed-key and failed states need localized text and a
 clear verification or retry action. Group message signature badges indicate
 successful message verification; they are distinct from contact identity badges.
 Keep these actions in the existing desktop panel navigation.
+
+## Media and account controls
+
+Keep the Timeline list mounted while showing the composer or post detail so the
+return action restores the scroll position. During uploads, show the current
+filename and percent complete, and disable file selection and publishing.
+
+Place the inactivity period and immediate deletion in a dedicated Profile
+view. Display the saved period, confirm immediate deletion with the account
+password, and use the danger color for that destructive action. Keep password
+recovery in the existing two-column login layout with the server selector,
+authenticator code, and new-password confirmation.
 
 ## 1. Product character
 

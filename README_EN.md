@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.6.5-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.7-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,10 +26,12 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 The complete release history has moved to [changelog.md](changelog.md).
 
-#### 2.6.5 Release Notes
+#### 2.6.7 Release Notes
 
-- Syncs upstream friendship fixes. Add or remove friends from their profiles, and refresh contacts on relationship changes and reconnect. Group chat verifies signatures against server-published member keys and encrypts with Sender Keys, which rotate on membership changes. Extra text encryption applies to private chats.
-- Friendship repair requires a server with the upstream friendship fixes. Group participants need clients compatible with the updated group mode. See [test coverage](tests/README.md).
+- Persistently caches avatars, Moments, Timeline media, and chat attachments by server and account. Cached media remains available offline and can be cleared from Profile.
+- Timeline uploads display the current filename, a progress bar, and a percentage. Returning from a post restores the list's scroll position.
+- In Profile → Account deletion, choose a 3, 6, 12, 24, or 36 month inactivity period. The default is 12 months. A successful sign-in restarts the timer. Immediate deletion requires the account password.
+- Accounts with two-factor authentication can choose Forgot password and enter a six-digit authenticator code to set a new password. Account deletion and password recovery require Paperphone-plus server 2.6.7 or later.
 
 
 ---
@@ -80,7 +82,7 @@ The extra password is never uploaded, synchronized automatically, or distributed
 
 The app does not persist the extra password. While unlocked it exists only in the current process memory; locally, the app stores only a random salt and AES-GCM verification data used to check whether an entered password is correct. Users can lock immediately or automatically 5, 15, 30, or 60 minutes after the app leaves the foreground. This layer adds an independent shared secret beyond E2EE; it does not replace a strong password, device lock, or system secure storage, and it cannot provide absolute protection on a fully compromised device while the password remains in memory.
 
-## 2.6.5 identity verification and compatibility
+## Identity verification and compatibility
 
 After both clients upgrade, use the agreed extra password in the contact profile to complete mutual verification. The green identity badge requires verified challenges and receipts. Changed identity keys revoke trust and require a fresh check. Group chat uses server-published member keys without requiring private verification for each member. Group membership changes rotate the epoch and offline recovery retrieves historical key distributions. Cached signature results are never trusted.
 
@@ -90,11 +92,12 @@ Use a server with the upstream friendship fixes and compatible clients. Older cl
 
 ### Download from Releases
 
-Download the 2.6.5 Apple Silicon DMG from [Releases](../../releases).
+Download the 2.6.7 Apple Silicon DMG from [Releases](../../releases).
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.6.5-arm64.dmg` | Recommended Apple Silicon DMG installer |
+| `PaperPhonePlus-2.6.7-arm64.dmg` | Recommended Apple Silicon DMG installer |
+| `PaperPhonePlus-2.6.7-arm64-mac.zip` | Apple Silicon ZIP archive |
 | `SHA256SUMS.txt` | SHA-256 checksums for the downloads |
 
 The current installer supports Apple Silicon Macs and is signed with an Apple Developer ID certificate. It does not yet have an Apple notarization ticket stapled to it. The default configuration does not generate Intel or Universal installers. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.
@@ -147,6 +150,7 @@ npx tsc --noEmit
 npm run test:security
 npm run test:attachments
 npm run test:i18n
+npm run test:media-cache
 
 # Package for macOS
 npm run build:mac
