@@ -4,6 +4,13 @@ All notable changes and new features are recorded here. Historical entries below
 
 所有重要版本改动和新特性统一记录于此。下方历史条目由仓库原有文档迁移而来。
 
+## 2.6.8
+
+- 同步上游 Lucide 界面图标，覆盖身份验证、群消息状态、通话、扫码、表情选择器和设置，并更新 Mac 侧栏的朋友圈及时间线图标。
+- Mac 应用及个人信息页页脚统一为 2.6.8。发布 Apple Silicon DMG、ZIP 和 SHA-256 校验文件。
+
+- Syncs upstream Lucide icons for identity verification, group message status, calls, QR scanning, the emoji picker, and settings. The Mac sidebar also uses Lucide icons for Moments and Timeline.
+
 ## 2.6.7
 
 - 本地持久缓存头像、朋友圈、时间线和聊天媒体，按服务器与账号隔离；已缓存媒体可离线查看，也可在个人信息页清理缓存。

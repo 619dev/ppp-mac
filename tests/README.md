@@ -1,4 +1,4 @@
-# Mac 2.6.7 verification
+# Mac 2.6.8 verification
 
 ```sh
 npx tsc --noEmit
@@ -15,10 +15,16 @@ Use a server with the upstream friendship fixes and compatible clients. Verify f
 
 The signed path uses X25519 and Ed25519. Real ML-KEM registration is not implemented. Signatures do not encrypt uploaded attachment bytes; previously lost group keys cannot be recovered by upgrading.
 
-应用版本、锁文件根包版本及个人信息页底部均为 **2.6.7**。安装包仅支持 arm64。主说明见 [中文文档](../README_CN.md) 和 [English guide](../README_EN.md)。
+应用版本、锁文件根包版本及个人信息页底部均为 **2.6.8**。安装包仅支持 arm64。主说明见 [中文文档](../README_CN.md) 和 [English guide](../README_EN.md)。
 
 
-## 2.6.7 desktop acceptance
+## 2.6.8 icon acceptance
+
+- Verify the Profile footer reads `PaperPhonePlus v2.6.8`. Check the verification badge and compare signed, unsigned, and key-pending group message indicators.
+- Open the emoji picker and check the category controls and their accessible names. Send an emoji, check Recent, and send a sticker.
+- Check the call playback controls, QR scanner, language picker, proxy settings, and the Moments and Timeline entries in the Mac sidebar.
+
+## Media and account acceptance
 
 - Open the packaged app and view avatars, Timeline or Moments media, and chat attachments. Reload offline to verify cached copies, reconnect to verify revalidation, and use Profile → Clear cache to verify removal. Verify account and server isolation.
 - Upload multiple Timeline images and a video. Check the filename, progress bar, percentage, disabled controls, and recovery from upload failure. Open a post and verify the list returns to its previous position.

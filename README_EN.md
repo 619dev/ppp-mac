@@ -5,7 +5,7 @@
 
   <p>
     <img src="https://img.shields.io/badge/Platform-macOS-blue?style=flat-square&logo=apple" alt="Platform" />
-    <img src="https://img.shields.io/badge/Version-2.6.7-green?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Version-2.6.8-green?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Electron-36-47848F?style=flat-square&logo=electron" alt="Electron" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React" />
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript" alt="TypeScript" />
@@ -26,12 +26,9 @@ PaperPhonePlus Desktop is the macOS desktop client of [Paperphone-plus](https://
 
 The complete release history has moved to [changelog.md](changelog.md).
 
-#### 2.6.7 Release Notes
+#### 2.6.8 Release Notes
 
-- Persistently caches avatars, Moments, Timeline media, and chat attachments by server and account. Cached media remains available offline and can be cleared from Profile.
-- Timeline uploads display the current filename, a progress bar, and a percentage. Returning from a post restores the list's scroll position.
-- In Profile → Account deletion, choose a 3, 6, 12, 24, or 36 month inactivity period. The default is 12 months. A successful sign-in restarts the timer. Immediate deletion requires the account password.
-- Accounts with two-factor authentication can choose Forgot password and enter a six-digit authenticator code to set a new password. Account deletion and password recovery require Paperphone-plus server 2.6.7 or later.
+- Syncs upstream Lucide icons for identity verification, group message status, calls, QR scanning, the emoji picker, and settings. The Mac sidebar also uses Lucide icons for Moments and Timeline.
 
 
 ---
@@ -92,12 +89,12 @@ Use a server with the upstream friendship fixes and compatible clients. Older cl
 
 ### Download from Releases
 
-Download the 2.6.7 Apple Silicon DMG from [Releases](../../releases).
+Download the 2.6.8 Apple Silicon DMG from [Releases](../../releases).
 
 | File | Description |
 |------|-------------|
-| `PaperPhonePlus-2.6.7-arm64.dmg` | Recommended Apple Silicon DMG installer |
-| `PaperPhonePlus-2.6.7-arm64-mac.zip` | Apple Silicon ZIP archive |
+| `PaperPhonePlus-2.6.8-arm64.dmg` | Recommended Apple Silicon DMG installer |
+| `PaperPhonePlus-2.6.8-arm64-mac.zip` | Apple Silicon ZIP archive |
 | `SHA256SUMS.txt` | SHA-256 checksums for the downloads |
 
 The current installer supports Apple Silicon Macs and is signed with an Apple Developer ID certificate. It does not yet have an Apple notarization ticket stapled to it. The default configuration does not generate Intel or Universal installers. If Gatekeeper blocks the first launch, Control-click the app in Finder, select **Open**, and confirm.

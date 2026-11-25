@@ -1,6 +1,6 @@
 # PaperPhonePlus Design System
 
-Version: **2.6.7**. The profile footer displays `PaperPhonePlus v2.6.7`.
+Version: **2.6.8**. The profile footer displays `PaperPhonePlus v2.6.8`.
 
 Contact profiles expose add/remove actions. Group member lists show membership and roles. Mutual password verification belongs to the private contact profile.
 
@@ -9,6 +9,11 @@ Refreshing, unverified, changed-key and failed states need localized text and a
 clear verification or retry action. Group message signature badges indicate
 successful message verification; they are distinct from contact identity badges.
 Keep these actions in the existing desktop panel navigation.
+
+Use Lucide for interface controls and status indicators, including the emoji
+picker categories, call playback, QR scanner, language picker, proxy settings,
+and desktop sidebar. Keep actual emoji in the picker and message content.
+Give icon-only controls accessible names and expose selected category state.
 
 ## Media and account controls
 
